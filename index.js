@@ -20,10 +20,18 @@ app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.all('/', function (req, res, next) {
+    req.app.locals.layout = 'main'; // set your layout here
+    next(); // pass control to the next handler
+});
+
 app.all('/admin/*', function (req, res, next) {
     req.app.locals.layout = 'dashboard'; // set your layout here
     next(); // pass control to the next handler
 });
+
+
+
 
 
 var hbs = exphbs.create({
