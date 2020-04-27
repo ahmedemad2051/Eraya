@@ -22,7 +22,7 @@ exports.store = async (req, res) => {
     }
 
     let avatar = req.files.avatar;
-    let imgName = avatar.md5 + avatar.name;
+    let imgName = Math.floor(Math.random() * Math.floor(9999999999)) + avatar.name;
 
     try {
         await avatar.mv(`public/upload/authors/${imgName}`);

@@ -31,7 +31,7 @@ exports.store = async (req, res) => {
     }
 
     let image = req.files.image;
-    let imgName = image.md5 + image.name;
+    let imgName = Math.floor(Math.random() * Math.floor(9999999999)) + image.name;
 
     try {
         await image.mv(`public/upload/books/${imgName}`);
