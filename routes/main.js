@@ -4,6 +4,12 @@ const homeController = require('../controllers/homeController');
 
 router.get('/', homeController.home);
 router.get('/categories', homeController.categories);
+router.get('/categories/categoryId', homeController.categoryBooks);
+
+
+
+
+
 
 
 module.exports = router;

@@ -5,3 +5,7 @@ exports.home = (req, res) => {
 exports.categories = (req, res) => {
     res.render('front/categories');
 }
+
+exports.categoryBooks = (req, res) => {
+    res.render('front/category_books');
+}
