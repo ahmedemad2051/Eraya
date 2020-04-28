@@ -1,0 +1,87 @@
+{{#section 'styles'}}
+    <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.css">
+{{/section}}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Books</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/books">Books</a></li>
+                        <li class="breadcrumb-item active">new book</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-8 offset-2">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">New Book</h3>
+                    </div>
+                    <!-- form start -->
+                    <form role="form" method="post" action="/admin/books/create" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                       placeholder="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <select class="form-control" name="author" id="author">
+                                    {{#each authors}}
+                                        <option value="{{_id}}">{{ fname }} {{ lname }}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control" name="category" id="category">
+                                    {{#each categories}}
+                                        <option value="{{_id}}">{{ name }}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="avatar">Image</label>
+                                <input type="file" class="form-control" name="image" id="image">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+{{#section 'scripts'}}
+    <script src="/assets/js/bootstrap-datetimepicker.js"></script>
+    <!--    <script type="text/javascript">-->
+    <!--        $(document).ready(function () {-->
+    <!--            $('#datetimepicker').datetimepicker({-->
+    <!--                format: 'LT'-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+{{/section}}

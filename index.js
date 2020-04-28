@@ -2,9 +2,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const exphbs  = require('express-handlebars');
+const helpers = require('handlebars-helpers')();
+const express_handlebars_sections = require('express-handlebars-sections');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
+const fileUpload = require('express-fileupload');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -19,6 +23,29 @@ app.use(session({
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+}));
+
+var hbs = exphbs.create({
+    defaultLayout: 'main',
+    helpers: {
+        "counter": (index)=>{
+            return index+1;
+        }
+    },
+    partialsDir: [
+        'views/admin/partials/',
+        'views/front/partials/',
+    ]
+});
+express_handlebars_sections(hbs);
+
+// view engine setup
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+// app.enable('view cache');
+
 
 app.all('/', function (req, res, next) {
     req.app.locals.layout = 'main'; // set your layout here
@@ -31,22 +58,6 @@ app.all('/admin/*', function (req, res, next) {
 });
 
 
-
-
-
-var hbs = exphbs.create({
-    defaultLayout: 'main',
-
-    partialsDir: [
-        'views/admin/partials/',
-        'views/front/partials/',
-    ]
-});
-
-// view engine setup
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-// app.enable('view cache');
 
 app.use('/admin/assets', express.static('./node_modules/admin-lte'));
 

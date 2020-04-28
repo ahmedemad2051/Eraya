@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
 const schema = new Schema({
     name: {
@@ -13,7 +13,7 @@ const schema = new Schema({
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        // required: true
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
@@ -25,7 +25,11 @@ const schema = new Schema({
         ref: 'Category',
         required: true
     },
-}, { timestamps: true });
+}, {timestamps: true});
+
+schema.pre('find', function () {
+    this.populate('author').populate('category').lean();
+});
 
 
 const Book = mongoose.model('Book', schema);

@@ -9,10 +9,13 @@ const schema = new Schema({
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        // required: true
     }
 }, { timestamps: true });
 
+schema.pre('find', function () {
+    this.lean();
+});
 
 const Category = mongoose.model('Category', schema);
 module.exports = Category;
