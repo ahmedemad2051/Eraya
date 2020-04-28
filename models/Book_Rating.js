@@ -22,8 +22,9 @@ const schema = new Schema({
         ref: 'User',
         required: true
     },
+
 }, { timestamps: true });
 
 
-const Book_rating = mongoose.model('Book_Rating', schema);
-module.exports = Book_rating;
+const Book_Rating = mongoose.model('Book_Rating', schema);
+module.exports = Book_Rating;
