@@ -1,6 +1,4 @@
-exports.signUp = (res, req) => {
-    console.log("tsttttttttttttttttttttttttttttttttttttttt")
-    // res.render('front/signUp')
-    res.json("aaaaaaaaaaaaaaaaaaaaa")
+exports.signUp = (req, res) => {
+    res.render('front/signUp')
 }
 

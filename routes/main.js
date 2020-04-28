@@ -4,7 +4,7 @@ const homeController = require('../controllers/homeController');
 const signUpController = require('../controllers/authentication/signUpController')
 router.get('/', homeController.home);
 
-router.get('signup', signUpController.signUp)
+router.get('/signup', signUpController.signUp)
 
 
 module.exports = router;
