@@ -29,5 +29,9 @@ schema.pre('find', function () {
     this.lean();
 });
 
+schema.pre('findOne', function () {
+    this.lean();
+});
+
 const Author = mongoose.model('Author', schema);
 module.exports = Author;

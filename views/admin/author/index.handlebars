@@ -55,8 +55,12 @@
                                         <td>{{fname}}</td>
                                         <td>{{lname}}</td>
                                         <td>{{dob}}</td>
-                                        <td><img src="/upload/authors/{{ image }}" width="200px"></td>
-                                        <td></td>
+                                        <td><img src="/{{ image }}" width="200px"></td>
+                                        <td>
+                                            <a class="btn btn-default" href="/admin/authors/{{_id}}/edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                        </td>
                                 </tr>
                             {{/each}}
                             </tbody>
