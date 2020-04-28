@@ -50,7 +50,11 @@
                                     <tr>
                                         <td>{{counter @index}}</td>
                                         <td>{{name}}</td>
-                                        <td></td>
+                                        <td>
+                                            <a class="btn btn-default" href="/admin/categories/{{_id}}/edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                        </td>
                                 </tr>
                             {{/each}}
                             </tbody>
