@@ -55,8 +55,12 @@
                                         <td>{{name}}</td>
                                         <td>{{author.fname}} {{author.lname}}</td>
                                         <td>{{category.name}}</td>
-                                        <td><img src="/upload/books/{{ image }}" width="200px"></td>
-                                        <td></td>
+                                        <td><img src="/{{ image }}" width="200px"></td>
+                                        <td>
+                                            <a class="btn btn-default" href="/admin/books/{{_id}}/edit">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                        </td>
                                 </tr>
                             {{/each}}
                             </tbody>

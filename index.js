@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const exphbs  = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const helpers = require('handlebars-helpers')();
 const express_handlebars_sections = require('express-handlebars-sections');
 const mongoose = require('mongoose');
@@ -18,20 +18,30 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: {secure: true}
 }));
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 },
+    limits: {fileSize: 50 * 1024 * 1024},
 }));
 
 var hbs = exphbs.create({
     defaultLayout: 'main',
     helpers: {
-        "counter": (index)=>{
-            return index+1;
+        "counter": (index) => {
+            return index + 1;
+        },
+        'equal': require("handlebars-helper-equal"),
+        'select':  function(value, options) {
+            return options.fn(this)
+                .split('\n')
+                .map(function(v) {
+                    var t = 'value="' + value + '"'
+                    return ! RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
+                })
+                .join('\n')
         }
     },
     partialsDir: [
@@ -56,7 +66,6 @@ app.all('/admin/*', function (req, res, next) {
     req.app.locals.layout = 'dashboard'; // set your layout here
     next(); // pass control to the next handler
 });
-
 
 
 app.use('/admin/assets', express.static('./node_modules/admin-lte'));
@@ -94,7 +103,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-mongoose.connect('mongodb://localhost:27017/eraya',{ useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/eraya', {useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => {
         console.log('mongodb started.');
         app.listen(PORT, () => {
