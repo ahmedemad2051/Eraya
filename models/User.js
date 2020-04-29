@@ -5,7 +5,8 @@ const { Schema } = mongoose;
 const schema = new Schema({
     email: {
         type: String,
-        match: /.+@+\..+/,
+        // match: /.+@+\..+/,
+        match: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
         unique: true,
         index:true,
         required: true

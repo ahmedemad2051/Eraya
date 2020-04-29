@@ -5,6 +5,6 @@ const signUpController = require('../controllers/authentication/signUpController
 router.get('/', homeController.home);
 
 router.get('/signup', signUpController.signUp)
-
+router.post('/register', signUpController.register)
 
 module.exports = router;
