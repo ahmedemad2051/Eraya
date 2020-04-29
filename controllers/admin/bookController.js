@@ -92,3 +92,13 @@ exports.update = async (req, res) => {
     }
 
 }
+
+exports.destroy = async (req, res) => {
+    let {id} = req.params;
+    try {
+        await Book.findByIdAndRemove(id)
+        res.status(200).json({"msg": 'success'});
+    } catch (e) {
+        res.status(500).err(e)
+    }
+}
