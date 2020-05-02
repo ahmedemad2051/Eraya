@@ -57,7 +57,7 @@ app.set('view engine', 'handlebars');
 // app.enable('view cache');
 
 
-app.all('/', function (req, res, next) {
+app.all('/*', function (req, res, next) {
     req.app.locals.layout = 'main'; // set your layout here
     next(); // pass control to the next handler
 });
