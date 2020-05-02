@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 exports.store = async (req, res) => {
     let {name} = req.body;
     try {
-        let category = await Category.create({name: name});
+        await Category.create({name: name});
         res.redirect("/admin/categories");
     } catch (err) {
         throw err;

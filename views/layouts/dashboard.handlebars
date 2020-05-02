@@ -26,7 +26,11 @@
 
     {{> layout/ad-navbar }}
     {{> layout/ad-sidebar }}
-
+    {{# if messages.errors }}
+        {{# each messages.errors }}
+            <p class="alert alert-danger">{{ msg }}</p>
+        {{/each}}
+    {{/if}}
 
     {{{ body }}}
     <!-- Control Sidebar -->

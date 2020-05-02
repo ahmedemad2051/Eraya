@@ -8,10 +8,6 @@ exports.index = async (req, res) => {
     let categories_count = await Category.count();
     let authors_count = await Author.count();
     let books_count = await Book.count();
-
     res.render('admin/index', {users_count, categories_count, authors_count, books_count});
 }
 
-exports.categories = (req, res) => {
-    res.render('admin/category/index');
-}

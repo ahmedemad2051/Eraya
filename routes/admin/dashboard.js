@@ -5,13 +5,26 @@ const categoryController = require('../../controllers/admin/categoryController')
 const authorController = require('../../controllers/admin/authorController');
 const bookController = require('../../controllers/admin/bookController');
 
+const categoryValidation = require('../../middleware/admin/categoryValidation');
+const checkErrors = require('../../middleware/admin/checkErrors');
+
+let categoriesRoutes = {
+    "index": "/categories",
+    "create": "/categories/create",
+    "store": "/categories/create",
+    "edit": "/categories/:id/edit",
+    "update": "/categories/:id/update",
+    "destroy": "/categories/:id/delete",
+
+}
 router.get('/', dashboardController.index);
-router.get('/categories', categoryController.index);
-router.get('/categories/create', categoryController.create);
-router.post('/categories/create', categoryController.store);
-router.get('/categories/:id/edit', categoryController.edit);
-router.post('/categories/:id/edit', categoryController.update);
-router.post('/categories/:id/delete', categoryController.destroy);
+
+router.get(categoriesRoutes.index, categoryController.index);
+router.get(categoriesRoutes.create, categoryController.create);
+router.post(categoriesRoutes.store, categoryValidation, checkErrors, categoryController.store);
+router.get(categoriesRoutes.edit, categoryController.edit);
+router.post(categoriesRoutes.update, categoryValidation, checkErrors, categoryController.update);
+router.post(categoriesRoutes.destroy, categoryController.destroy);
 
 
 router.get('/authors', authorController.index);

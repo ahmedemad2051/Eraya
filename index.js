@@ -14,12 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {secure: true}
-}));
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
