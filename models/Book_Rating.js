@@ -25,6 +25,9 @@ const schema = new Schema({
 
 }, { timestamps: true });
 
+schema.pre('find', function () {
+    this.populate('book').lean();
+});
 
 const Book_Rating = mongoose.model('Book_Rating', schema);
 module.exports = Book_Rating;
