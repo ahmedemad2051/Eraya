@@ -28,7 +28,11 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.4.0",
     "handlebars-helpers": "^0.10.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6"
   }
 }

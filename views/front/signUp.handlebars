@@ -1,3 +1,4 @@
+
 <!-- slider Area Start-->
 <div class="slider-area ">
     <!-- Mobile Menu -->
@@ -34,6 +35,7 @@
                     <div class="login_part_form_iner">
                         <h3>Join Us! </h3> 
                          {{!-- action="/admin/books/create" --}}
+                         {{ messages.info }}
                         <form class="row contact_form" action="/register" method="post" novalidate="novalidate" id="registerForm">
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="fName" name="fName" value="" placeholder="First Name">
@@ -74,4 +76,9 @@
         </div>
     </div>
 </section>
+
+{{#section 'scripts'}}
+<script src="/assets/js/signUpFormValidate.js"></script>
+
+{{/section}}
 <!--================login_part end =================-->

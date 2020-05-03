@@ -17,6 +17,15 @@ loginForm.onsubmit = (e) => {
     validateLoginForm() 
     if(validateLoginForm()){
         loginForm.submit();
+        // loginForm.onsubmit = function(){
+        //     $.ajax({
+        //         url: "/login",
+        //         method: "post",
+        //         success: function(result){
+        //         console.log(result)
+        //     }
+        // })
+        // }
     }                        
 }
 

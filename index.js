@@ -9,17 +9,37 @@ const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
 
+const signInController = require('./controllers/authentication/signInController')
+
+var Handlebars = require('handlebars');
+
+
+// name is a member of myModule due to the export above
+// var name = myModule.name;
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+const {
+    SESS_NAME = 'sid',
+    SESS_LIFETIME = 1000 * 60 * 60 * 2
+} = process.env
+
+
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { 
+        maxAge: SESS_LIFETIME,
+        secure: false,
+     }
 }));
+
+// app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true})); 
+
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -93,6 +113,10 @@ app.use(function (err, req, res, next) {
 
 });
 
+
+app.get('/home', (req, res) =>{
+    const {userId} = req.session
+})
 
 mongoose.connect('mongodb://localhost:27017/eraya',{ useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
