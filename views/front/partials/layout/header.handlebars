@@ -86,24 +86,41 @@
                         <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
                             <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
                                 <li class="d-none d-xl-block">
-                                    <div class="form-box f-right ">
-                                        <input type="text" name="Search" placeholder="Search products">
+                                    <div class="form-box f-right" style="position: relative; left:-120px;">
+                                        <input type="text" name="Search" placeholder="Search products" style="width: 400px;">
                                         <div class="search-icon">
-                                            <i class="fas fa-search special-tag"></i>
+                                            <i class="fas fa-search special-tag" style="position: relative; left:100px;"></i>
                                         </div>
                                     </div>
                                 </li>
-                                <li class=" d-none d-xl-block">
+                                {{!-- <li class=" d-none d-xl-block">
                                     <div class="favorit-items">
                                         <i class="far fa-heart"></i>
                                     </div>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{!-- <li>
                                     <div class="shopping-card">
                                         <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
                                     </div>
+                                </li> --}}
+                                {{#if userId }}
+                                <div style="position: relative; left:-50px;">
+                                <li class="nav-item btn-group">
+                                    <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="">
+                                        <i class="fa fa-user" aria-hidden="true" ></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby= "dropdownMen">
+                                        <a class="dropdown-item" style='line-height: 1.6; border-bottom: 0.5px solid grey;'>Profile</a>
+                                        <a class="dropdown-item" >Log Out</a>
+                                    </div>
+
                                 </li>
-                                <li class="d-none d-lg-block"><a href="#" class="btn header-btn">Sign in</a></li>
+
+                                </div>
+                                {{!-- <li class="d-none d-lg-block"><a href="#" class="btn header-btn">Log Out</a></li> --}}
+                                {{else}}
+                                <li class="d-none d-lg-block"><a href="/signIn" class="btn header-btn">Sign in</a></li>
+                                {{/if}}
                             </ul>
                         </div>
                         <!-- Mobile Menu -->
