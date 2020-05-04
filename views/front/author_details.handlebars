@@ -1,0 +1,76 @@
+
+<section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Author</th>
+                <th scope="col">date of birth</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                       <img src="/{{ author.image }}" width="200px">
+                    </div>
+                    <div class="media-body">
+                       <p>{{ author.fname }} {{author.lname}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h5>{{ author.dob }}</h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </section>
+
+  <section class="cart_area section_padding">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                 <th scope="col">Author's Books</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each books}}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                        <img src="/{{ image }}" width="200px">
+                    </div>
+                    <div class="media-body">
+                       <p>{{ name }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <form action="/authors/{{author._id}}" method="POST">
+                  <input type="hidden" name="book_id" value="{{_id}}">
+                    <select class="shipping_select" onchange="this.form.submit()" name="selectedBook">
+                      <option value="finished">Read</option>
+                      <option value="current">Currently Readinga</option>
+                      <option value="read">Want to Read</option>
+                    </select>
+                  </form>
+                </td>
+              </tr>
+               {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </section>
+
+
