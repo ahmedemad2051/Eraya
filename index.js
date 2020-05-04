@@ -9,17 +9,31 @@ const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+
+const {
+    SESS_NAME = 'sid',
+    SESS_LIFETIME = 1000 * 60 * 60 * 2
+} = process.env
+
+
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: {secure: true}
+    name: SESS_NAME,
+    cookie: { 
+        maxAge: SESS_LIFETIME,
+        secure: false,
+     }
 }));
+
+
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -102,8 +116,7 @@ app.use(function (err, req, res, next) {
 
 });
 
-
-mongoose.connect('mongodb://localhost:27017/eraya', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb://localhost:27017/eraya',{ useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
         console.log('mongodb started.');
         app.listen(PORT, () => {

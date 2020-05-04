@@ -41,6 +41,7 @@ exports.store = async (req, res) => {
             author: author,
             category: category,
             image: imgPath,
+            admin: req.session.userId
         });
         res.redirect("/admin/books");
     } catch (err) {
@@ -91,4 +92,14 @@ exports.update = async (req, res) => {
         res.status(500).write(e)
     }
 
+}
+
+exports.destroy = async (req, res) => {
+    let {id} = req.params;
+    try {
+        await Book.findByIdAndRemove(id)
+        res.status(200).json({"msg": 'success'});
+    } catch (e) {
+        res.status(500).err(e)
+    }
 }

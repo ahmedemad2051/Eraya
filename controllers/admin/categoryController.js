@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 exports.store = async (req, res) => {
     let {name} = req.body;
     try {
-        let category = await Category.create({name: name});
+        await Category.create({name: name});
         res.redirect("/admin/categories");
     } catch (err) {
         throw err;
@@ -26,11 +26,11 @@ exports.store = async (req, res) => {
 }
 
 exports.edit = async (req, res) => {
-    try{
+    try {
         let {id} = req.params;
         let category = await Category.findOne({_id: id})
         res.render(`${views}/edit`, {category});
-    }catch (e) {
+    } catch (e) {
         res.status(500).err(e)
     }
 
@@ -39,16 +39,26 @@ exports.edit = async (req, res) => {
 exports.update = async (req, res) => {
     let {id} = req.params;
     let {name} = req.body;
-    try{
-        let category = await Category.findByIdAndUpdate(id, {
+    try {
+        await Category.findByIdAndUpdate(id, {
             $set:
                 {
                     name: name
                 }
         }, {new: true})
         res.redirect("/admin/categories");
-    }catch (e) {
+    } catch (e) {
         res.status(500).err(e)
     }
 
+}
+
+exports.destroy = async (req, res) => {
+    let {id} = req.params;
+    try {
+        await Category.findByIdAndRemove(id)
+        res.status(200).json({"msg": 'success'});
+    } catch (e) {
+        res.status(500).err(e)
+    }
 }
