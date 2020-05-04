@@ -109,3 +109,4 @@ package-lock.json
 
 public/upload/authors/*
 public/upload/books/*
+package.json
