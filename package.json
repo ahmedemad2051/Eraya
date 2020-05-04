@@ -29,7 +29,12 @@
     "express-validator": "^6.4.1",
     "handlebars-helper-equal": "^1.0.0",
     "handlebars-helpers": "^0.10.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
+    "nodemon": "^2.0.3",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6"
   }
 }

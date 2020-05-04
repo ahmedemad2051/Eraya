@@ -41,6 +41,7 @@ exports.store = async (req, res) => {
             author: author,
             category: category,
             image: imgPath,
+            admin: req.session.userId
         });
         res.redirect("/admin/books");
     } catch (err) {
