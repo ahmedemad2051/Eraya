@@ -10,12 +10,13 @@
         <div class="row product-btn d-flex justify-content-between">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="row">
+
+
                         {{#each books}}
 
-                            <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="col-md-6">
                                 <div class="card single-product mb-60 shadow mb-2 bg-white rounded">
-                                    <img class="card-img-top" src="{{image}}" alt="Card image cap">
+                                    <img class="card-img-top" src="/{{image}}" alt="Card image cap">
                                     <div class="card-body">
                                         <div class="product-caption">
                                             <div class="product-ratting">
@@ -27,16 +28,36 @@
                                             </div>
                                             <div class="card-text">
                                                 <span class="text-muted">Name:</span>  <a href="#" style="color: #00b1ff;">{{name}}</a><br/>
-                                                <span class="text-muted">Author:</span> <a href="#" style="color: #00b1ff;">{{author.name}}</a>
+                                                <span class="text-muted">Author:</span> <a href="#" style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         {{/each}}
-                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Pagination   -->
+        {{#if pages  0 }}
+             <ul class="pagination text-center">
+                 {{#if current '==' 1 }}
+                     <li class="disabled"><a>First</a></li>
+                 {{else}}
+                     <li><a href="/category/{{id}}/1">First</a></li>
+                 {{/if}}
+                 {{ var i '=' current '>' 5 '?' current '-' 4 ':' 1}}
+                 {{# if i '!==' 1}}
+                     <li class="disabled"><a>...</a></li>
+                 {{/if}}
+                 {{#if current '==' pages }}
+                     <li class="disabled"><a>Last</a></li>
+                 {{else}}
+                     <li><a href="/category/{{id}}/{{pages}}">Last</a></li>
+                 {{/if}}
+             </ul>
+        {{/if}}
     </div>
 </section>
+

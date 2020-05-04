@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
+// const paginate = require('express-paginate')
 
 const app = express();
 const PORT = process.env.PORT || 3000;

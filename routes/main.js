@@ -4,7 +4,7 @@ const homeController = require('../controllers/homeController');
 
 router.get('/', homeController.home);
 router.get('/categories', homeController.categories);
-router.get('/categories/:id', homeController.categoryBooks);
+router.get('/category/:id', homeController.categoryBooks);
 router.get('/books', homeController.books);
 router.get('/book/:id', homeController.bookDetails);
 
