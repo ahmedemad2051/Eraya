@@ -1,7 +1,7 @@
 const User = require('../../models/User')
 const bcrypt = require('bcrypt');
 const session = require("express-session")
-const jwt = require('jsonwebtoken');
+
 const index = require('../../index')
 
 const express = require('express');
@@ -35,10 +35,11 @@ exports.login = async(req, res, next) => {
                 if(isEqual){
 
                     req.session.userId = user.id
-                    sessionUserId = user.id
-                    app.locals.sayHi = "hi"
+                    req.session.fName = user.fName
+                    req.session.lName = user.lName
+                    req.session.isAdmin = user.isAdmin
                     await req.session.save()
-                    res.redirect('/home')
+                    res.redirect('/')
                 }else{
                     req.flash('info', "Invalid Email OR Password.")
                     res.redirect('/signin')
@@ -87,10 +88,7 @@ function validateEmail(email){
   
   }
 
-exports.homeRender =async (req, res, next) =>{
-    const user =await User.findOne({_id: req.session.userId})
-    res.render('front/profile', {userId: req.session.userId})
-}
+
 
 
 exports.redirectLogin =async (req, res, next) => {
@@ -103,7 +101,7 @@ exports.redirectLogin =async (req, res, next) => {
 }
 exports.redirectHome = (req, res, next) =>{
     if(req.session.userId){
-        res.redirect('/home')
+        res.redirect('/')
     }else{
         next()
     }
@@ -116,9 +114,18 @@ exports.logOut = async(req, res, next)=>{
     console.log(req.session)
     req.session.destroy(err =>{
         if(err){
-            res.redirect('/home')
+            res.redirect('/')
         }
         res.clearCookie('sid')
         res.redirect('/')
     })
+}
+
+
+exports.isLogin = async(req, res, next)=>{
+    if(req.session.userId){
+        res.render('front/home', {userId: req.session.userId, fName: req.session.fName, lName: req.session.lName})
+    }else{
+        next()
+    }
 }
