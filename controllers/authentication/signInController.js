@@ -17,14 +17,8 @@ exports.signIn = (req, res) => {
 
 
 
-exports.redirectHome = (req, res, next) =>{
-    if(req.session.userId){
-        res.redirect('/home')
-    }else{
-        next()
-    }
-}
-let sessionUserId='';
+
+
 
 exports.login = async(req, res, next) => {
     
@@ -106,4 +100,25 @@ exports.redirectLogin =async (req, res, next) => {
     else{
         next()
     }
+}
+exports.redirectHome = (req, res, next) =>{
+    if(req.session.userId){
+        res.redirect('/home')
+    }else{
+        next()
+    }
+}
+
+
+
+
+exports.logOut = async(req, res, next)=>{
+    console.log(req.session)
+    req.session.destroy(err =>{
+        if(err){
+            res.redirect('/home')
+        }
+        res.clearCookie('sid')
+        res.redirect('/')
+    })
 }
