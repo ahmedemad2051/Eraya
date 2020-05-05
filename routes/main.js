@@ -6,8 +6,14 @@ const authorCotroller = require('../controllers/authorController');
 
 
 router.get('/profile', profileController.all);
+router.post('/profile', profileController.bookStatus);
 router.get('/profile/current', profileController.current);
+router.post('/profile/current', profileController.bookStatus);
 router.get('/profile/finished', profileController.finished);
+router.post('/profile/finished', profileController.bookStatus);
+router.get('/profile/read', profileController.read);
+router.post('/profile/read', profileController.bookStatus);
+
 router.get('/authors/:id', authorCotroller.author_details);
 router.post('/authors/:id', authorCotroller.bookStatus);
 const signUpController = require('../controllers/authentication/signUpController')

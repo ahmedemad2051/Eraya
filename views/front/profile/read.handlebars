@@ -6,7 +6,7 @@
                             <!--Nav Button  -->
                             <nav>                                                                                                
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                   <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="/profile" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="/profile" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="/profile/finished" role="tab" aria-controls="nav-profile" aria-selected="false">Read</a>
                                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/profile/current" role="tab" aria-controls="nav-contact" aria-selected="false">Currently Reading</a>
                                     <a class="nav-item nav-link" id="nav-last-tab" data-toggle="tab" href="/profile/read" role="tab" aria-controls="nav-contact" aria-selected="false">Want To Read</a>
@@ -49,14 +49,14 @@
                   </div>
                 </td>
                 <td>
-                  {{!-- <form action="/authors/{{author._id}}" method="POST">
+                   <form action="/profile/read" method="POST">
                   <input type="hidden" name="book_id" value="{{_id}}">
                     <select class="shipping_select" onchange="this.form.submit()" name="selectedBook">
                       <option value="finished">Read</option>
                       <option value="current">Currently Readinga</option>
                       <option value="read">Want to Read</option>
                     </select>
-                  </form> --}}
+                  </form>
                 </td>
               </tr>
                {{/each}}
