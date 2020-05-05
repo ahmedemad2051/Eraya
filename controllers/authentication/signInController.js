@@ -112,6 +112,7 @@ exports.redirectHome = (req, res, next) =>{
 
 exports.logOut = async(req, res, next)=>{
     console.log(req.session)
+    console.log("yactaaaaaaaaaa")
     req.session.destroy(err =>{
         if(err){
             res.redirect('/')
@@ -122,7 +123,7 @@ exports.logOut = async(req, res, next)=>{
 }
 
 
-exports.isLogin = async(req, res, next)=>{
+exports.isAuthenticated = async(req, res, next)=>{
     if(req.session.userId){
         res.render('front/home', {userId: req.session.userId, fName: req.session.fName, lName: req.session.lName})
     }else{
