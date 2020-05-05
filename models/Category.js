@@ -17,5 +17,9 @@ schema.pre('find', function () {
     this.lean();
 });
 
+schema.pre('findOne', function () {
+    this.lean();
+});
+
 const Category = mongoose.model('Category', schema);
 module.exports = Category;

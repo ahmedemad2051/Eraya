@@ -31,6 +31,10 @@ schema.pre('find', function () {
     this.populate('author').populate('category').lean();
 });
 
+schema.pre('findOne', function () {
+    this.populate('author').populate('category').lean();
+});
+
 
 const Book = mongoose.model('Book', schema);
 module.exports = Book;
