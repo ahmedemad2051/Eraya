@@ -2,7 +2,7 @@ const Users_Books = require('../models/Users_Books');
 const User = require('../models/User');
 const Book = require('../models/Book');
 
-let views = "front/profile"
+let views = "front"
 
 exports.all =async (req, res) => {
     try {
@@ -67,7 +67,7 @@ exports.bookStatus = async (req, res) => {
             else {
              await  Users_Books.create({user: "5eb093931a6b982bf0083f8d" , book: book_id, shelve: selectedBook})
             }
-            res.redirect(`${views}/profile`);
+            res.redirect('/profile');
         }
     } catch (err) {
         res.status(500).json(err);
