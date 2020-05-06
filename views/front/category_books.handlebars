@@ -1,4 +1,17 @@
-
+{{#section 'styles'}}
+    <style>
+        .pagination-sm > li > a{
+            color: #0b0b0b;
+        }
+        .pagination>li{
+            border: 1px solid;
+            padding: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
+{{/section}}
 <section class="latest-product-area">
     <div class="container mt-4">
         <div class="header mb-10">
@@ -40,24 +53,7 @@
         </div>
 
         <!-- Pagination   -->
-        {{#if pages  0 }}
-             <ul class="pagination text-center">
-                 {{#if current '==' 1 }}
-                     <li class="disabled"><a>First</a></li>
-                 {{else}}
-                     <li><a href="/category/{{id}}/1">First</a></li>
-                 {{/if}}
-                 {{ var i '=' current '>' 5 '?' current '-' 4 ':' 1}}
-                 {{# if i '!==' 1}}
-                     <li class="disabled"><a>...</a></li>
-                 {{/if}}
-                 {{#if current '==' pages }}
-                     <li class="disabled"><a>Last</a></li>
-                 {{else}}
-                     <li><a href="/category/{{id}}/{{pages}}">Last</a></li>
-                 {{/if}}
-             </ul>
-        {{/if}}
+        {{{paginateHelper pagination }}}
     </div>
 </section>
 

@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
-// const paginate = require('express-paginate')
+const paginateHelper = require('express-handlebars-paginate');
+
 
 // const expressValidator = require('express-validator');
 
@@ -77,7 +78,8 @@ var hbs = exphbs.create({
                     return !RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
                 })
                 .join('\n')
-        }
+        },
+        'paginateHelper': paginateHelper.createPagination
     },
     partialsDir: [
         'views/admin/partials/',

@@ -27,24 +27,22 @@ exports.categories = async (req, res, next) => {
 
 exports.categoryBooks = async (req, res, next) => {
     var perPage = 6
-    var page = req.params.page || 1
+    var page = req.query.page || 1
     const id = req.params.id
     try{
         const books = await Book.find({category: req.params.id})
                                 .skip((perPage * page) - perPage)
                                 .limit(perPage)
-                                . exec();
+                                .exec();
          if(books) {
-
-             console.log(books)
+             // console.log(books)
              // get total documents in the Posts collection
              const count = await Book.countDocuments();
 
              return res.render('front/category_books', {
                  id: id,
                  books: books,
-                 Pages: Math.ceil(count / perPage),
-                 current: page
+                 pagination: { page: page, limit:perPage,totalRows: count }
              });
          }else{
              return res.redirect('/')

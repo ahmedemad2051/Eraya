@@ -25,6 +25,7 @@
     "express-fileupload": "^1.1.7-alpha.3",
     "express-flash": "0.0.2",
     "express-handlebars": "^4.0.3",
+    "express-handlebars-paginate": "^1.0.3",
     "express-handlebars-sections": "^1.0.1",
     "express-paginate": "^1.0.0",
     "express-session": "^1.17.1",
