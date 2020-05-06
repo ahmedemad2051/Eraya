@@ -8,11 +8,10 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
-<<<<<<< HEAD
 // const paginate = require('express-paginate')
-=======
+
 // const expressValidator = require('express-validator');
->>>>>>> aac6fd7f579dd98b9570d412b83172a26b5b7d53
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -93,7 +92,7 @@ app.set('view engine', 'handlebars');
 // app.enable('view cache');
 
 
-app.all('/*', function (req, res, next) {
+app.all('/', function (req, res, next) {
     req.app.locals.layout = 'main'; // set your layout here
     next(); // pass control to the next handler
 });

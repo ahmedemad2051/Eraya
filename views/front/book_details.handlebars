@@ -42,7 +42,7 @@
                                     By
                                     <br/>
                                     <span>Category</span>
-                                    <div class="stars" data-rating="0">
+                                    <div class="stars" data-rating="{{rate}}">
                                         <span class="star">&nbsp;</span>
                                         <span class="star">&nbsp;</span>
                                         <span class="star">&nbsp;</span>
@@ -76,7 +76,7 @@
 </section>
 
 <script>
-
+    var rateValue = 0;
     //initial setup
     document.addEventListener('DOMContentLoaded', function(){
         addListeners();
@@ -86,16 +86,26 @@
     function addListeners(){
         var stars = document.querySelectorAll('.star');
         var review = document.getElementById('exampleFormControlTextarea1').value;
-        console.log(review);
+
         var submitBtn = document.getElementById('submitId');
         [].forEach.call(stars, function(star, index){
             star.addEventListener('click', (function(idx){
-                var rateValue = idx + 1;
+
+                 rateValue = idx + 1;
                 document.querySelector('.stars').setAttribute('data-rating', rateValue);
-                axios.post('../controllers/homeController.setRate' , {rateValue} , {review} , {{!book.id}})
+
                 setRating();
             }).bind(window,index) );
+
         });
+
+        submitBtn.addEventListener('click', function () {
+            axios.post('/book/{{book._id}}/rate' , {rateValue: rateValue} , {review: review} )
+            console.log('review:  ' + review);
+            console.log('rateVlaue => '+ rateValue)
+            console.log({{book._id}})
+
+        })
 
     }
 

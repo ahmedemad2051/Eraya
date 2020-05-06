@@ -12,7 +12,12 @@ exports.home = (req, res) => {
 exports.categories = async (req, res, next) => {
     try{
         const categories = await Category.find({})
-        return res.render('front/categories', {categories: categories});
+        if(categories){
+            return res.render('front/categories', {categories: categories});
+        }else {
+            return res.redirect('/')
+        }
+
 
     }catch(err){
         next(err)
@@ -28,17 +33,22 @@ exports.categoryBooks = async (req, res, next) => {
         const books = await Book.find({category: req.params.id})
                                 .skip((perPage * page) - perPage)
                                 .limit(perPage)
-                                .exec();
-        console.log(books)
-        // get total documents in the Posts collection
-        const count = await Book.countDocuments();
+                                . exec();
+         if(books) {
 
-        return res.render('front/category_books', {
-                                                   id: id,
-                                                   books: books,
-                                                   Pages: Math.ceil(count / perPage),
-                                                   current: page
-                                                   });
+             console.log(books)
+             // get total documents in the Posts collection
+             const count = await Book.countDocuments();
+
+             return res.render('front/category_books', {
+                 id: id,
+                 books: books,
+                 Pages: Math.ceil(count / perPage),
+                 current: page
+             });
+         }else{
+             return res.redirect('/')
+         }
 
     }catch(err){
         next(err)
@@ -73,10 +83,13 @@ exports.books = async (req, res, next) => {
 exports.bookDetails = async (req, res, next) => {
 
     try{
-
-        const rates = await BookRating.find({book: req.params.id}).populate('book')
+        const book = await Book.findById(req.params.id)
+        console.log(book)
+        console.log(req.params.id)
+        console.log(req.params.id)
+        const rates = await BookRating.find({book: req.params.id})
         console.log(rates)
-        return res.render('front/book_details', {rates: rates});
+        return res.render('front/book_details', {book: book,rates: rates});
 
     }catch(err){
         next(err)
@@ -84,14 +97,23 @@ exports.bookDetails = async (req, res, next) => {
 }
 
 exports.setRate= async (req,res,next)=>{
+    console.log(req.params.rateValue)
+    console.log(req.params.review)
+    console.log(req.params.id)
+    console.log(req.session.userId)
+
     try {
         const book = await Book.findById(req.params.id)
         if(book){
-            const {rateValue , id } = req.body
-            const bookRate = await BookRating.create({rate:rateValue, book: id, user: req.session.userId})
-            bookRate.rate = req.params.rateValue
+            const {rateValue, review  , id } = req.body
+            await BookRating.create({rate: rateValue,
+                                     review: review,
+                                     book: id,
+                                     user: req.session.userId
+                                    })
+
         }else{
-            res.redirect('/books')
+            res.redirect('/')
         }
 
 
