@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ahmedemad2051/Eraya#readme",
   "dependencies": {
     "admin-lte": "^3.0.4",
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",

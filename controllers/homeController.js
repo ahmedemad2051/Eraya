@@ -83,3 +83,20 @@ exports.bookDetails = async (req, res, next) => {
     }
 }
 
+exports.setRate= async (req,res,next)=>{
+    try {
+        const book = await Book.findById(req.params.id)
+        if(book){
+            const {rateValue , id } = req.body
+            const bookRate = await BookRating.create({rate:rateValue, book: id, user: req.session.userId})
+            bookRate.rate = req.params.rateValue
+        }else{
+            res.redirect('/books')
+        }
+
+
+    }catch (err) {
+
+        next(err)
+    }
+}
