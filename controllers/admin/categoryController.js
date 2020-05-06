@@ -18,7 +18,8 @@ exports.create = (req, res) => {
 exports.store = async (req, res) => {
     let {name} = req.body;
     try {
-        let category = await Category.create({name: name});
+        await Category.create({name: name});
+        req.flash('success', 'Category created successfully');
         res.redirect("/admin/categories");
     } catch (err) {
         throw err;
@@ -46,6 +47,7 @@ exports.update = async (req, res) => {
                     name: name
                 }
         }, {new: true})
+        req.flash('success', 'Category updated successfully');
         res.redirect("/admin/categories");
     } catch (e) {
         res.status(500).err(e)

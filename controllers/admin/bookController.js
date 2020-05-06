@@ -41,7 +41,9 @@ exports.store = async (req, res) => {
             author: author,
             category: category,
             image: imgPath,
+            admin: req.session.userId
         });
+        req.flash('success', 'Book created successfully');
         res.redirect("/admin/books");
     } catch (err) {
         return res.status(500).send(err);
@@ -86,6 +88,7 @@ exports.update = async (req, res) => {
             data['image'] = imgPath;
         }
         await Book.findByIdAndUpdate(id, {$set: data}, {new: true})
+        req.flash('success', 'Book updated successfully');
         res.redirect("/admin/books");
     } catch (e) {
         res.status(500).write(e)

@@ -8,19 +8,54 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
 const fileUpload = require('express-fileupload');
+<<<<<<< HEAD
 // const paginate = require('express-paginate')
+=======
+// const expressValidator = require('express-validator');
+>>>>>>> aac6fd7f579dd98b9570d412b83172a26b5b7d53
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(expressValidator({
+//     customValidators: {
+//         isImage: function (value, filename) {
+//
+//             let extension = (path.extname(filename)).toLowerCase();
+//             switch (extension) {
+//                 case '.jpg':
+//                     return '.jpg';
+//                 case '.jpeg':
+//                     return '.jpeg';
+//                 case  '.png':
+//                     return '.png';
+//                 default:
+//                     return false;
+//             }
+//         }
+//     }
+// }));
+
+const {
+    SESS_NAME = 'sid',
+    SESS_LIFETIME = 1000 * 60 * 60 * 2
+} = process.env
+
+
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: {secure: true}
+    name: SESS_NAME,
+    cookie: {
+        maxAge: SESS_LIFETIME,
+        secure: false,
+    }
 }));
+
+
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,12 +70,12 @@ var hbs = exphbs.create({
             return index + 1;
         },
         'equal': require("handlebars-helper-equal"),
-        'select':  function(value, options) {
+        'select': function (value, options) {
             return options.fn(this)
                 .split('\n')
-                .map(function(v) {
+                .map(function (v) {
                     var t = 'value="' + value + '"'
-                    return ! RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
+                    return !RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
                 })
                 .join('\n')
         }
@@ -102,7 +137,6 @@ app.use(function (err, req, res, next) {
 
 
 });
-
 
 mongoose.connect('mongodb://localhost:27017/eraya', {useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => {

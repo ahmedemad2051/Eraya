@@ -5,23 +5,39 @@ const categoryController = require('../../controllers/admin/categoryController')
 const authorController = require('../../controllers/admin/authorController');
 const bookController = require('../../controllers/admin/bookController');
 
+const categoryValidation = require('../../middleware/admin/categoryValidation');
+const createAuthorValidation = require('../../middleware/admin/createAuthorValidation');
+const checkErrors = require('../../middleware/admin/checkErrors');
+
+let categoriesRoutes = {
+    "index": "/categories",
+    "create": "/categories/create",
+    "store": "/categories/create",
+    "edit": "/categories/:id/edit",
+    "update": "/categories/:id/update",
+    "destroy": "/categories/:id/delete",
+}
+
 router.get('/', dashboardController.index);
-router.get('/categories', categoryController.index);
-router.get('/categories/create', categoryController.create);
-router.post('/categories/create', categoryController.store);
-router.get('/categories/:id/edit', categoryController.edit);
-router.post('/categories/:id/edit', categoryController.update);
-router.post('/categories/:id/delete', categoryController.destroy);
 
+// categories
+router.get(categoriesRoutes.index, categoryController.index);
+router.get(categoriesRoutes.create, categoryController.create);
+router.post(categoriesRoutes.store, categoryValidation, checkErrors, categoryController.store);
+router.get(categoriesRoutes.edit, categoryController.edit);
+router.post(categoriesRoutes.update, categoryValidation, checkErrors, categoryController.update);
+router.post(categoriesRoutes.destroy, categoryController.destroy);
 
+// authors
 router.get('/authors', authorController.index);
 router.get('/authors/create', authorController.create);
-router.post('/authors/create', authorController.store);
+router.post('/authors/create', createAuthorValidation, checkErrors, authorController.store);
 router.get('/authors/:id/edit', authorController.edit);
-router.post('/authors/:id/edit', authorController.update);
+router.post('/authors/:id/update',createAuthorValidation, checkErrors, authorController.update);
 router.post('/authors/:id/delete', authorController.destroy);
 
 
+// books
 router.get('/books', bookController.index);
 router.get('/books/create', bookController.create);
 router.post('/books/create', bookController.store);
