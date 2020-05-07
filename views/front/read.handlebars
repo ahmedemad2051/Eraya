@@ -1,0 +1,66 @@
+<!-- Latest Products Start -->
+        <section class="latest-product-area latest-padding">
+            <div class="container">
+                <div class="row product-btn d-flex justify-content-between">
+                        <div class="properties__button">
+                            <!--Nav Button  -->
+                            <nav>                                                                                                
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab"  href="/profile" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab"  href="/profile/finished" role="tab" aria-controls="nav-profile" aria-selected="false">Read</a>
+                                    <a class="nav-item nav-link" id="nav-contact-tab"  href="/profile/current" role="tab" aria-controls="nav-contact" aria-selected="false">Currently Reading</a>
+                                    <a class="nav-item nav-link" id="nav-last-tab" href="/profile/read" role="tab" aria-controls="nav-contact" aria-selected="false">Want To Read</a>
+                                </div>
+                            </nav>
+                            <!--End Nav Button  -->
+                            </div>
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                 <th scope="col">cover</th>
+                 <th scope="col">Name</th>
+                 <th scope="col">Author</th>
+                 <th scope="col">Avg Rate</th>
+                 <th scope="col">Rating</th>
+                 <th scope="col">shelve</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each books}}
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="d-flex">
+                        <img src="/{{ book.image }}" width="200px">
+                    </div>
+                    <td>
+                      <div class="media-body">
+                       <p>{{ book.name }}</p>
+                    </div>
+                    </td>
+                    <td>
+                      <div class="media-body">
+                       <p>{{ book.author.fname }}</p>
+                    </div>
+                    </td>
+                  </div>
+                </td>
+                <td>
+                   <form action="/profile/read" method="POST">
+                  <input type="hidden" name="book_id" value="{{_id}}">
+                    <select class="shipping_select" onchange="this.form.submit()" name="selectedBook">
+                      <option value="finished">Read</option>
+                      <option value="current">Currently Readinga</option>
+                      <option value="read">Want to Read</option>
+                    </select>
+                  </form>
+                </td>
+              </tr>
+               {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
