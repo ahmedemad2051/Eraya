@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const {Schema} = mongoose;
 
 const schema = new Schema({
-    rate:{
-        type: {
-            type: Number,
-            required: true
-        }
+    rate: {
+        type: Number,
+        required: true
+
     },
     review: {
         type: String,
@@ -23,7 +22,7 @@ const schema = new Schema({
         required: true
     },
 
-}, { timestamps: true });
+}, {timestamps: true});
 
 schema.pre('find', function () {
     this.populate('book').lean();

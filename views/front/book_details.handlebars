@@ -1,26 +1,31 @@
-<!--const axios = require('axios');-->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<style>
-    /*------------------Book Rating-----------------------*/
+{{#section 'styles'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <style>
+        /*------------------Book Rating-----------------------*/
 
-    .star{
-        color: goldenrod;
-        font-size: 1.2rem;
-    }
-    .star::before{
-        content: '\2606';
-        cursor: pointer;
-    }
-    .star:hover::before{
-        /* the :hover should come first */
-        content: '\2605';
-        color: #bada55;
-    }
-    .star.rated::before{
-        /* the :hover should come first */
-        content: '\2605';
-    }
-</style>
+        .star {
+            color: goldenrod;
+            font-size: 1.2rem;
+        }
+
+        .star::before {
+            content: '\2606';
+            cursor: pointer;
+        }
+
+        .star:hover::before {
+            /* the :hover should come first */
+            content: '\2605';
+            color: #bada55;
+        }
+
+        .star.rated::before {
+            /* the :hover should come first */
+            content: '\2605';
+        }
+    </style>
+{{/section}}
+
 <!--================Cart Area =================-->
 <section class="cart_area section_padding">
     <div class="container">
@@ -34,25 +39,22 @@
                             <div class="media">
                                 <div class="d-flex">
                                     <img src="data:image/jpeg;base64,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"
-                                         style="height: 200px;" alt="" />
+                                         style="height: 200px;" alt=""/>
                                 </div>
                                 <div class="media-body">
-                                    <p>{{book.name}}</p>
-                                    <h4>Book Name</h4>
-                                    By
-                                    <br/>
-                                    <span>Category</span>
-                                    <div class="stars" data-rating="{{rate}}">
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                    </div>
+                                    <h4>{{book.name}}</h4>
+                                    <h6>Author: {{book.author.fname}} {{book.author.lname}}</h6>
+                                    <h6>Category: {{book.category.name}}</h6>
+                                    <div id="rateYo"></div>
+                                    <!--                                    <div class="stars" data-rating="{{rate}}">-->
+                                    <!--                                        <span class="star">&nbsp;</span>-->
+                                    <!--                                        <span class="star">&nbsp;</span>-->
+                                    <!--                                        <span class="star">&nbsp;</span>-->
+                                    <!--                                        <span class="star">&nbsp;</span>-->
+                                    <!--                                        <span class="star">&nbsp;</span>-->
+                                    <!--                                    </div>-->
                                     <div>
-                                        ----------------<br/>
-                                        ----------------<br/>
-                                        ----------------<br/>
+
 
                                     </div>
 
@@ -68,59 +70,79 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"><h1>Review</h1></label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="review" rows="3">{{review}}</textarea>
             </div>
-            <button type="button" class="btn btn-primary" id="submitId">Submit</button>
+            <button type="button" class="btn btn-primary" id="submitId">add Review</button>
         </div>
     </div>
 </section>
 
-<script>
-    var rateValue = 0;
-    //initial setup
-    document.addEventListener('DOMContentLoaded', function(){
-        addListeners();
-         setRating(); //based on value inside the div
-    });
-
-    function addListeners(){
-        var stars = document.querySelectorAll('.star');
-        var review = document.getElementById('exampleFormControlTextarea1').value;
-
-        var submitBtn = document.getElementById('submitId');
-        [].forEach.call(stars, function(star, index){
-            star.addEventListener('click', (function(idx){
-
-                 rateValue = idx + 1;
-                document.querySelector('.stars').setAttribute('data-rating', rateValue);
-
-                setRating();
-            }).bind(window,index) );
-
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let rateYo = $("#rateYo").rateYo({
+                rating: '{{rate}}',
+                starWidth: "20px",
+            });
+            $(document).on('click', '#submitId', function (e) {
+                e.preventDefault();
+                let rate = rateYo.rateYo('rating');
+                let review = $("#review").val();
+                if (review) {
+                    axios.post('/book/{{book._id}}/rate', {rate: rate, review: review}).then(res => {
+                        alert(res.data.msg);
+                    });
+                }
+            });
         });
+    </script>
+    <!--    <script>-->
+    <!--        var rateValue = 0;-->
+    <!--        //initial setup-->
+    <!--        document.addEventListener('DOMContentLoaded', function(){-->
+    <!--            addListeners();-->
+    <!--            setRating(); //based on value inside the div-->
+    <!--        });-->
 
-        submitBtn.addEventListener('click', function () {
-            axios.post('/book/{{book._id}}/rate' , {rateValue: rateValue} , {review: review} )
-            console.log('review:  ' + review);
-            console.log('rateVlaue => '+ rateValue)
-            console.log({{book._id}})
+    <!--        function addListeners(){-->
+    <!--            var stars = document.querySelectorAll('.star');-->
+    <!--            var review = document.getElementById('exampleFormControlTextarea1').value;-->
 
-        })
+    <!--            var submitBtn = document.getElementById('submitId');-->
+    <!--            [].forEach.call(stars, function(star, index){-->
+    <!--                star.addEventListener('click', (function(idx){-->
 
-    }
+    <!--                    rateValue = idx + 1;-->
+    <!--                    document.querySelector('.stars').setAttribute('data-rating', rateValue);-->
 
-    function setRating(){
-        var stars = document.querySelectorAll('.star');
-        var rating = parseInt( document.querySelector('.stars').getAttribute('data-rating') );
-        [].forEach.call(stars, function(star, index){
-            if(rating > index){
-                star.classList.add('rated');
-                console.log('added rated on', index );
-            }else{
-                star.classList.remove('rated');
-                console.log('removed rated on', index );
-            }
-        });
-    }
+    <!--                    setRating();-->
+    <!--                }).bind(window,index) );-->
 
-</script>
+    <!--            });-->
+
+    <!--            submitBtn.addEventListener('click', function () {-->
+    <!--                axios.post('/book/{{book._id}}/rate' , {rateValue: rateValue} , {review: review} )-->
+    <!--                console.log('review:  ' + review);-->
+    <!--                console.log('rateVlaue => '+ rateValue)-->
+    <!--            })-->
+
+    <!--        }-->
+
+    <!--        function setRating(){-->
+    <!--            var stars = document.querySelectorAll('.star');-->
+    <!--            var rating = parseInt( document.querySelector('.stars').getAttribute('data-rating') );-->
+    <!--            [].forEach.call(stars, function(star, index){-->
+    <!--                if(rating > index){-->
+    <!--                    star.classList.add('rated');-->
+    <!--                    console.log('added rated on', index );-->
+    <!--                }else{-->
+    <!--                    star.classList.remove('rated');-->
+    <!--                    console.log('removed rated on', index );-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+
+    <!--    </script>-->
+{{/section}}
