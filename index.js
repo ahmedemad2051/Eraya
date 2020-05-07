@@ -11,7 +11,7 @@ const fileUpload = require('express-fileupload');
 const paginateHelper = require('express-handlebars-paginate');
 
 
-// const expressValidator = require('express-validator');
+const checkAuthentication = require('./middleware/checkAuthentication')
 
 
 const app = express();
@@ -55,6 +55,10 @@ app.use(session({
     }
 }));
 
+app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
 
 app.use(flash());
 app.use(express.urlencoded({extended: false}));
@@ -94,7 +98,7 @@ app.set('view engine', 'handlebars');
 // app.enable('view cache');
 
 
-app.all('/', function (req, res, next) {
+app.all('/*', function (req, res, next) {
     req.app.locals.layout = 'main'; // set your layout here
     next(); // pass control to the next handler
 });
@@ -105,12 +109,12 @@ app.all('/admin/*', function (req, res, next) {
 });
 
 
-app.use('/admin/assets', express.static('./node_modules/admin-lte'));
+app.use('/admin/assets' ,express.static('./node_modules/admin-lte'));
 
 // admin routes
 const dashboardRouter = require('./routes/admin/dashboard');
 
-app.use('/admin', dashboardRouter);
+app.use('/admin',checkAuthentication.isAdmin ,dashboardRouter);
 
 // front routes
 const mainRouter = require('./routes/main');
@@ -148,3 +152,4 @@ mongoose.connect('mongodb://localhost:27017/eraya', {useUnifiedTopology: true, u
     }).catch(() => {
     console.log('Mongodb connection failed.');
 })
+

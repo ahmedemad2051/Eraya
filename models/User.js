@@ -24,7 +24,8 @@ const schema = new Schema({
     lName: {
         type: String,
         required: true
-    }
+    },
+    isAdmin:{type: Boolean, default:false}
 });
 
 schema.pre('save',async function(next) {
