@@ -8,8 +8,6 @@ const express = require('express');
 const app = express();
 
 
-session.name = "mohamed"
-
 
 exports.signIn = (req, res) => {
     res.render('front/signIn')
