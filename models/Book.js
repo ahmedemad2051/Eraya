@@ -31,6 +31,27 @@ const schema = new Schema({
     }
 }, {timestamps: true});
 
+<<<<<<< HEAD
+=======
+schema.methods.getBookRates = async function getBookRates() {
+    let avgRate = 0;
+    let book_rates =  await BookRating.aggregate([
+        {$match: {book: this._id}},
+        {
+            $group:
+                {
+                    _id: "$book",
+                    avgRate: {$avg: {$sum: "$rate"}},
+                }
+        }
+    ]);
+    if (book_rates) {
+        avgRate = book_rates[0].avgRate;
+
+    }
+    return avgRate;
+}
+>>>>>>> 71a93e2b16ce685d39462760ddf545f6f352cf8d
 
 
 schema.pre('find', function () {
@@ -44,3 +65,32 @@ schema.pre('findOne', function () {
 
 const Book = mongoose.model('Book', schema);
 module.exports = Book;
+
+//
+// schema.virtual('average_rate').get(async function () {
+//     let avgRate = 0;
+//     try{
+//         let book_rates =  await BookRating.aggregate([
+//             {$match: {book: this._id}},
+//             {
+//                 $group:
+//                     {
+//                         _id: "$book",
+//                         avgRate: {$avg: {$sum: "$rate"}},
+//                     }
+//             }
+//         ]);
+//
+//         if (book_rates) {
+//             avgRate = book_rates[0].avgRate;
+//
+//         }
+//     }catch (e) {
+//
+//     }finally {
+//         console.log('rate '+avgRate )
+//
+//     }
+//
+//     return 2;
+// });

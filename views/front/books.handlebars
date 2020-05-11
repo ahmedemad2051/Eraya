@@ -1,29 +1,33 @@
-
 {{#section 'styles'}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <style>
         /*------------------Book Rating-----------------------*/
-        .pagination-sm > li > a{
+        .pagination-sm > li > a {
             color: #0b0b0b;
         }
-        .pagination>li{
+
+        .pagination > li {
             border: 1px solid;
             padding: 8px;
             border-radius: 50%;
             margin-right: 5px;
         }
-        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+
+        .pagination > li > a, .pagination > li > span {
+            border-radius: 50% !important;
+            margin: 0 5px;
+        }
     </style>
 {{/section}}
 
 
-    <div class="container mt-4">
-        <div class="header mb-10">
-            <h3 class="text-muted">
-                <span class="fa fa-book fa-2x "aria-hidden="true"></span>
-                <span>Books</span>
-            </h3>
-        </div>
+<div class="container mt-4">
+    <div class="header mb-10">
+        <h3 class="text-muted">
+            <span class="fa fa-book fa-2x " aria-hidden="true"></span>
+            <span>Books</span>
+        </h3>
+    </div>
     <br/>
     <div class="row">
 
@@ -34,34 +38,46 @@
                 <div class="card-body">
                     <div id="rateYo{{_id}}" class="card-text product-caption"></div>
                     <div class="card-text">
-                        <span class="text-muted">Name:</span>  <a href="/book/{{_id}}" style="color: #00b1ff;">{{name}}</a><br/>
-                        <span class="text-muted">Author:</span> <a href="/authors/{{authors._id}}" style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
+                        <span class="text-muted">Name:</span> <a href="/book/{{_id}}"
+                                                                 style="color: #00b1ff;">{{name}}</a><br/>
+                        <span class="text-muted">Author:</span> <a href="/authors/{{authors._id}}"
+                                                                   style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
                     </div>
                 </div>
             </div>
 
         {{/each}}
-                    </div>
-
-     <div style="margin-left: 350px;">  {{{ paginateHelper pagination }}} </div>
     </div>
+
+    <div style="margin-left: 350px;">  {{{ paginateHelper pagination }}} </div>
+</div>
 
 
 {{#section 'scripts'}}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
-        {{#each books}}
+
         $(document).ready(function () {
+<<<<<<< HEAD
             let rateYo = $("#rateYo{{_id}}").rateYo({
                 rating: {{avgRate}},
                 starWidth: "20px",
             });
+=======
+            {{#each books}}
+>>>>>>> 71a93e2b16ce685d39462760ddf545f6f352cf8d
 
-           document.getElementById('rateYo{{_id}}').innerHTML = rateYo;
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{getBookRates}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
+
+            {{/each}}
 
         });
-        {{/each}}
+
     </script>
 
 {{/section}}
