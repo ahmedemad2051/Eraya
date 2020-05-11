@@ -34,7 +34,8 @@
     "handlebars-helper-equal": "^1.0.0",
     "handlebars-helpers": "^0.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.11",
+    "mongoose": "^5.9.13",
+    "mongoose-lean-virtuals": "^0.6.2",
     "nodemon": "^2.0.3",
     "path": "^0.12.7"
   },
