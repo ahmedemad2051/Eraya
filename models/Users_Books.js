@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const schema = new Schema({
-    rate: {
-        type: Number,
-        required: true
-
-    },
-    review: {
-        type: String,
+    shelve:{
+        type: String, enum: ["finished","current","read"],
         required: true
     },
     book: {
@@ -21,12 +16,14 @@ const schema = new Schema({
         ref: 'User',
         required: true
     },
-
-}, {timestamps: true});
-
+})
 schema.pre('find', function () {
-    this.populate('book').lean();
+    this.populate('book').populate('user').lean();
 });
 
-const Book_Rating = mongoose.model('Book_Rating', schema);
-module.exports = Book_Rating;
+schema.pre('findOne', function () {
+    this.populate('book').populate('user').lean();
+});
+
+const Users_Books = mongoose.model('Users_Books', schema);
+module.exports = Users_Books;

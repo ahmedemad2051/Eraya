@@ -4,7 +4,8 @@
   "description": "Eraya is a nodejs app for discover new books and read them for free",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,7 @@
     "handlebars-helper-equal": "^1.0.0",
     "handlebars-helpers": "^0.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.10",
+    "mongoose": "^5.9.11",
     "nodemon": "^2.0.3",
     "path": "^0.12.7"
   },

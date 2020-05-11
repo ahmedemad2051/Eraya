@@ -1,26 +1,31 @@
-<!--const axios = require('axios');-->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<style>
-    /*------------------Book Rating-----------------------*/
+{{#section 'styles'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <style>
+        /*------------------Book Rating-----------------------*/
 
-    .star{
-        color: goldenrod;
-        font-size: 1.2rem;
-    }
-    .star::before{
-        content: '\2606';
-        cursor: pointer;
-    }
-    .star:hover::before{
-        /* the :hover should come first */
-        content: '\2605';
-        color: #bada55;
-    }
-    .star.rated::before{
-        /* the :hover should come first */
-        content: '\2605';
-    }
-</style>
+        .star {
+            color: goldenrod;
+            font-size: 1.2rem;
+        }
+
+        .star::before {
+            content: '\2606';
+            cursor: pointer;
+        }
+
+        .star:hover::before {
+            /* the :hover should come first */
+            content: '\2605';
+            color: #bada55;
+        }
+
+        .star.rated::before {
+            /* the :hover should come first */
+            content: '\2605';
+        }
+    </style>
+{{/section}}
+
 <!--================Cart Area =================-->
 <section class="cart_area section_padding">
     <div class="container">
@@ -33,29 +38,14 @@
 
                             <div class="media">
                                 <div class="d-flex">
-                                    <img src="{{book.image}}"
-                                         style="height: 200px; width: 200px;" alt="" />
+
+                                    <img src="/{{book.image}}" style="height: 200px;" alt=""/>
                                 </div>
                                 <div class="media-body">
-                                    <h3>{{book.name}}</h3>
-
-                                    Created By:  <a href="/book/{{book._id}}" style="color: #00b1ff">{{book.author.fname}} {{book.author.lname}}</a>
-                                    <br/>
-                                    <span>Category:</span>  <a href="/category/{{book.category._id}}" style="color: #00b1ff">{{book.category.name}}</a>
-                                    <div class="stars" data-rating="{{book.rate}}">
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                    </div>
-                                    <div>
-                                        ----------------<br/>
-                                        ----------------<br/>
-                                        ----------------<br/>
-
-                                    </div>
-
+                                    <h4>{{book.name}}</h4>
+                                    <h6>Author: <a href='/authors/{{book.author._id}}' style="color: #00b1ff;">{{book.author.fname}} {{book.author.lname}}</a></h6>
+                                    <h6>Category: <a href="/category/{{book.category._id}}" style="color: #00b1ff;">{{book.category.name}}</h6>
+                                    <div id="rateYo"></div>
                                 </div>
                             </div>
                         </td>
@@ -68,59 +58,43 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"><h1>Review</h1></label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="review" rows="3">{{review}}</textarea>
             </div>
-            <button type="button" class="btn btn-primary" id="submitId">Submit</button>
+            <button type="button" class="btn btn-primary" id="submitId">add Review</button>
         </div>
+
+        <br><br>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1"><h1>Reviews</h1></label>
+            {{#each reviews}}
+                <input class="form-control" type="text" placeholder="{{review}}" readonly> <br>
+            {{/each}}
+        </div>
+
+    </div>
     </div>
 </section>
 
-<script>
-    var rateValue = 0;
-    //initial setup
-    document.addEventListener('DOMContentLoaded', function(){
-        addListeners();
-         setRating(); //based on value inside the div
-    });
-
-    function addListeners(){
-        var stars = document.querySelectorAll('.star');
-        var review = document.getElementById('exampleFormControlTextarea1').value;
-
-        var submitBtn = document.getElementById('submitId');
-        [].forEach.call(stars, function(star, index){
-            star.addEventListener('click', (function(idx){
-
-                 rateValue = idx + 1;
-                document.querySelector('.stars').setAttribute('data-rating', rateValue);
-
-                setRating();
-            }).bind(window,index) );
-
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let rateYo = $("#rateYo").rateYo({
+                rating: '{{rate}}',
+                starWidth: "20px",
+            });
+            $(document).on('click', '#submitId', function (e) {
+                e.preventDefault();
+                let rate = rateYo.rateYo('rating');
+                let review = $("#review").val();
+                if (review) {
+                    axios.post('/book/{{book._id}}/rate', {rate: rate, review: review}).then(res => {
+                        alert(res.data.msg);
+                    });
+                }
+            });
         });
+    </script>
 
-        submitBtn.addEventListener('click', function () {
-            axios.post('/book/{{book._id}}/rate' , {rateValue: rateValue} , {review: review} )
-            console.log('review:  ' + review);
-            console.log('rateVlaue => '+ rateValue)
-            console.log({{book._id}})
-
-        })
-
-    }
-
-    function setRating(){
-        var stars = document.querySelectorAll('.star');
-        var rating = parseInt( document.querySelector('.stars').getAttribute('data-rating') );
-        [].forEach.call(stars, function(star, index){
-            if(rating > index){
-                star.classList.add('rated');
-                console.log('added rated on', index );
-            }else{
-                star.classList.remove('rated');
-                console.log('removed rated on', index );
-            }
-        });
-    }
-
-</script>
+{{/section}}
