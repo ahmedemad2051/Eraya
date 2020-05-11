@@ -31,27 +31,8 @@ const schema = new Schema({
     }
 }, {timestamps: true});
 
-<<<<<<< HEAD
-=======
-schema.methods.getBookRates = async function getBookRates() {
-    let avgRate = 0;
-    let book_rates =  await BookRating.aggregate([
-        {$match: {book: this._id}},
-        {
-            $group:
-                {
-                    _id: "$book",
-                    avgRate: {$avg: {$sum: "$rate"}},
-                }
-        }
-    ]);
-    if (book_rates) {
-        avgRate = book_rates[0].avgRate;
 
-    }
-    return avgRate;
-}
->>>>>>> 71a93e2b16ce685d39462760ddf545f6f352cf8d
+
 
 
 schema.pre('find', function () {

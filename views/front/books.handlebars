@@ -58,23 +58,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
 
+
         $(document).ready(function () {
-<<<<<<< HEAD
-            let rateYo = $("#rateYo{{_id}}").rateYo({
-                rating: {{avgRate}},
+            {{#each books}}
+             $("#rateYo{{_id}}").rateYo({
+                rating: "{{avgRate}}",
                 starWidth: "20px",
             });
-=======
-            {{#each books}}
->>>>>>> 71a93e2b16ce685d39462760ddf545f6f352cf8d
-
-                $("#rateYo{{_id}}").rateYo({
-                    rating: "{{getBookRates}}",
-                    starWidth: "20px",
-                    readOnly: true
-                });
 
             {{/each}}
+
+
 
         });
 

@@ -60,7 +60,7 @@ exports.categoryBooks = async (req, res, next) => {
 }
 
 exports.books = async (req, res, next) => {
-    console.log(req.session.userId)
+
     var perPage = 16
     var page = req.query.page || 1
     const id = req.params.id
@@ -122,7 +122,6 @@ exports.bookDetails = async (req, res, next) => {
 
         }
         reviews = await BookRating.find({book: req.params.id}).lean()
-        console.log(reviews)
         return res.render('front/book_details', {book: book, rate: avgRate, review: review, reviews: reviews});
 
     } catch (err) {
@@ -130,9 +129,9 @@ exports.bookDetails = async (req, res, next) => {
     }
 }
 
-function getBookRates(id) {
+async  function getBookRates(id) {
     let avgRate = 0;
-    let book_rates =  BookRating.aggregate([
+    let book_rates = await BookRating.aggregate([
         {$match: {book: id}},
         {
             $group:
@@ -175,7 +174,26 @@ exports.setRate = async (req, res, next) => {
                 msg = 'your rate and review added successfully';
             }
             status = true;
-            Book.avgRate = getBookRates(req.params.id)
+            let avgRate = 0;
+            let book_rates = await BookRating.aggregate([
+                {$match: {book: book._id}},
+                {
+                    $group:
+                        {
+                            _id: "$book",
+                            avgRate: {$avg: {$sum: "$rate"}},
+                        }
+                }
+            ]);
+            if (book_rates) {
+                avgRate = book_rates[0].avgRate;
+
+            }
+
+
+            console.log(avgRate)
+
+            await Book.findByIdAndUpdate(book._id, {$set: {avgRate: avgRate}}, {new: true})
         }
 
         res.json({
