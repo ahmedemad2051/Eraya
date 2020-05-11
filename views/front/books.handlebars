@@ -57,19 +57,15 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
-
-
         $(document).ready(function () {
             {{#each books}}
-             $("#rateYo{{_id}}").rateYo({
-                rating: "{{avgRate}}",
-                starWidth: "20px",
-            });
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
 
             {{/each}}
-
-
-
         });
 
     </script>

@@ -27,7 +27,8 @@ const schema = new Schema({
         required: true
     },
     avgRate: {
-        type: String
+        type: String,
+        default: '0'
     }
 }, {timestamps: true});
 
