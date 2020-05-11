@@ -54,7 +54,7 @@
         {{#each books}}
         $(document).ready(function () {
             let rateYo = $("#rateYo{{_id}}").rateYo({
-                rating: {{getBookRates}},
+                rating: {{avgRate}},
                 starWidth: "20px",
             });
 

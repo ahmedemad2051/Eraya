@@ -26,26 +26,11 @@ const schema = new Schema({
         ref: 'Category',
         required: true
     },
+    avgRate: {
+        type: String
+    }
 }, {timestamps: true});
 
-schema.methods.getBookRates = function getBookRates() {
-    let avgRate = 0;
-    let book_rates =  BookRating.aggregate([
-        {$match: {book: this._id}},
-        {
-            $group:
-                {
-                    _id: "$book",
-                    avgRate: {$avg: {$sum: "$rate"}},
-                }
-        }
-    ]);
-    if (book_rates) {
-        avgRate = book_rates[0].avgRate;
-
-    }
-    return avgRate;
-}
 
 
 schema.pre('find', function () {

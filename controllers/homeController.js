@@ -130,6 +130,26 @@ exports.bookDetails = async (req, res, next) => {
     }
 }
 
+function getBookRates(id) {
+    let avgRate = 0;
+    let book_rates =  BookRating.aggregate([
+        {$match: {book: id}},
+        {
+            $group:
+                {
+                    _id: "$book",
+                    avgRate: {$avg: {$sum: "$rate"}},
+                }
+        }
+    ]);
+    if (book_rates) {
+        avgRate = book_rates[0].avgRate;
+
+    }
+    return avgRate;
+}
+
+
 exports.setRate = async (req, res, next) => {
     // console.log(req.params.review)
     // console.log(req.params.rate)
@@ -145,6 +165,7 @@ exports.setRate = async (req, res, next) => {
                 book_rate.update({rate: rate, review: review});
                 msg = 'Your rate and review updated successfully';
             } else {
+
                 await BookRating.create({
                     rate: rate,
                     review: review,
@@ -154,6 +175,7 @@ exports.setRate = async (req, res, next) => {
                 msg = 'your rate and review added successfully';
             }
             status = true;
+            Book.avgRate = getBookRates(req.params.id)
         }
 
         res.json({
