@@ -1,4 +1,5 @@
 {{#section 'styles'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <style>
         .pagination-sm > li > a{
             color: #0b0b0b;
@@ -63,6 +64,11 @@
                     </td>
                   </div>
                 </td>
+                 <td>
+                      <div class="media-body">
+                       <div id="rateYo{{_id}}" ></div>
+                    </div>
+                </td>
                 <td>
                    <form action="/profile" method="POST">
                   <input type="hidden" name="book_id" value="{{book._id}}">
@@ -83,4 +89,23 @@
       </div>
   
 
-        </section>
+</section>
+
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            {{#each books}}
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
+
+            {{/each}}
+        });
+
+    </script>
+
+{{/section}}

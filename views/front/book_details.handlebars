@@ -48,6 +48,16 @@
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <form action="/books" method="POST">
+                                <input type="hidden" name="book_id" value="{{book._id}}">
+                                <select class="shipping_select" onchange="this.form.submit()" name="selectedBook">
+                                    <option value="finished">Read</option>
+                                    <option value="current">Currently Readinga</option>
+                                    <option value="read">Want to Read</option>
+                                </select>
+                            </form>
+                        </td>
 
                     </tr>
 

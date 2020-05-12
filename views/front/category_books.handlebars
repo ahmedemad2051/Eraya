@@ -31,7 +31,7 @@
                                 <div class="card mb-4  ml-1 mr-1  shadow  bg-white rounded col-md-3" style="height: 400px;">
                                     <img class="card-img-top" src="/{{image}}" alt="Card image cap" style="height: 70%">
                                     <div class="card-body">
-
+                                        <div id="rateYo{{_id}}" class="card-text product-caption"></div>
                                             <div class="card-text">
                                                 <span class="text-muted">Name:</span>  <a href="/book/{{_id}}" style="color: #00b1ff;">{{name}}</a><br/>
                                                 <span class="text-muted">Author:</span> <a href="/authors/{{authors._id}}" style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
@@ -48,5 +48,21 @@
 
     </div>
 
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            {{#each books}}
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
 
+            {{/each}}
+        });
 
+    </script>
+
+{{/section}}

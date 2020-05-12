@@ -21,6 +21,7 @@ router.get('/categories', homeController.categories);
 router.get('/category/:id', homeController.categoryBooks);
 router.get('/books', homeController.books);
 router.get('/book/:id', homeController.bookDetails);
+router.post('/books', homeController.bookStatus);
 router.post('/book/:id/rate', homeController.setRate);
 
 
