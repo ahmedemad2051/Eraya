@@ -8,11 +8,8 @@ const aboutController = require('../controllers/aboutController');
 router.get('/profile', profileController.all);
 router.post('/profile', profileController.bookStatus);
 router.get('/profile/current', profileController.current);
-router.post('/profile/current', profileController.bookStatus);
 router.get('/profile/finished', profileController.finished);
-router.post('/profile/finished', profileController.bookStatus);
 router.get('/profile/read', profileController.read);
-router.post('/profile/read', profileController.bookStatus);
 router.get('/about', aboutController.about);
 
 router.get('/authors/:id', authorCotroller.author_details);
