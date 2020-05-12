@@ -8,11 +8,8 @@ const aboutController = require('../controllers/aboutController');
 router.get('/profile', profileController.all);
 router.post('/profile', profileController.bookStatus);
 router.get('/profile/current', profileController.current);
-router.post('/profile/current', profileController.bookStatus);
 router.get('/profile/finished', profileController.finished);
-router.post('/profile/finished', profileController.bookStatus);
 router.get('/profile/read', profileController.read);
-router.post('/profile/read', profileController.bookStatus);
 router.get('/about', aboutController.about);
 router.get('/authors', authorCotroller.authors);
 router.get('/authors/:id', authorCotroller.author_details);
@@ -24,6 +21,7 @@ router.get('/categories', homeController.categories);
 router.get('/category/:id', homeController.categoryBooks);
 router.get('/books', homeController.books);
 router.get('/book/:id', homeController.bookDetails);
+router.post('/book/:id', homeController.bookStatus);
 router.post('/book/:id/rate', homeController.setRate);
 
 
