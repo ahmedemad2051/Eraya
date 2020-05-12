@@ -6,6 +6,34 @@ const BookRating = require('../models/Book_Rating');
 
 let views = "front/author_details"
 
+exports.authors= async (req, res, next) => {
+    console.log(req.session.userId)
+    var perPage = 16
+    var page = req.query.page || 1
+
+    try {
+
+        // execute query with page and limit values
+        const authors = await Author.find({})
+            .skip((perPage * page) - perPage)
+            .limit(perPage)
+            .exec();
+        if(authors) {
+            // get total documents in the Posts collection
+            const count = await Author.countDocuments();
+            return res.render('front/authors', {
+                authors: authors,
+                pagination: { page: page, limit:perPage,totalRows: count }
+            })
+        }else{
+            return res.redirect('/')
+        }
+
+    } catch (err) {
+        next(err)
+    }
+
+}
 exports.author_details = async (req, res) => {
     let {id} = req.params;
     try {

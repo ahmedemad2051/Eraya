@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const BookRating = require('../models/Book_Rating')
 const {Schema} = mongoose;
 
 const schema = new Schema({
@@ -25,7 +26,15 @@ const schema = new Schema({
         ref: 'Category',
         required: true
     },
+    avgRate: {
+        type: String,
+        default: '0'
+    }
 }, {timestamps: true});
+
+
+
+
 
 schema.pre('find', function () {
     this.populate('author').populate('category').lean();
@@ -38,3 +47,32 @@ schema.pre('findOne', function () {
 
 const Book = mongoose.model('Book', schema);
 module.exports = Book;
+
+//
+// schema.virtual('average_rate').get(async function () {
+//     let avgRate = 0;
+//     try{
+//         let book_rates =  await BookRating.aggregate([
+//             {$match: {book: this._id}},
+//             {
+//                 $group:
+//                     {
+//                         _id: "$book",
+//                         avgRate: {$avg: {$sum: "$rate"}},
+//                     }
+//             }
+//         ]);
+//
+//         if (book_rates) {
+//             avgRate = book_rates[0].avgRate;
+//
+//         }
+//     }catch (e) {
+//
+//     }finally {
+//         console.log('rate '+avgRate )
+//
+//     }
+//
+//     return 2;
+// });

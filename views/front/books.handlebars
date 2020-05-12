@@ -1,42 +1,73 @@
-<section class="latest-product-area">
-    <div class="container mt-4">
-        <div class="header mb-10">
-            <h3 class="text-muted">
-                <span class="fa fa-book fa-2x "aria-hidden="true"></span>
-                <span>Books</span>
-            </h3>
-        </div>
-        <div class="row product-btn d-flex justify-content-between">
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="row">
+{{#section 'styles'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <style>
+        /*------------------Book Rating-----------------------*/
+        .pagination-sm > li > a {
+            color: #0b0b0b;
+        }
 
-                        {{#each books}}
+        .pagination > li {
+            border: 1px solid;
+            padding: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
 
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <div class="card single-product mb-60 shadow mb-2 bg-white rounded" style="height: 450px;">
-                                <img class="card-img-top" src="{{image}}" alt="Card image cap" style="height: 70%;">
-                                <div class="card-body">
-                                    <div class="product-caption">
-                                        <div class="product-ratting">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star low-star"></i>
-                                            <i class="far fa-star low-star"></i>
-                                        </div>
-                                        <div class="card-text">
-                                            <span class="text-muted">Name:</span>  <a href="/book/{{_id}}" style="color: #00b1ff;">{{name}}</a><br/>
-                                            <span class="text-muted">Author:</span> <a href="/" style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
+        .pagination > li > a, .pagination > li > span {
+            border-radius: 50% !important;
+            margin: 0 5px;
+        }
+    </style>
+{{/section}}
+
+
+<div class="container mt-4">
+    <div class="header mb-10">
+        <h3 class="text-muted">
+            <span class="fa fa-book fa-2x " aria-hidden="true"></span>
+            <span>Books</span>
+        </h3>
+    </div>
+    <br/>
+    <div class="row">
+
+        {{#each books}}
+
+            <div class="card mb-4  ml-1 mr-1  shadow  bg-white rounded col-md-3" style="height: 400px;">
+                <img class="card-img-top" src="{{image}}" alt="Card image cap" style="height: 70%;">
+                <div class="card-body">
+                    <div id="rateYo{{_id}}" class="card-text product-caption"></div>
+                    <div class="card-text">
+                        <span class="text-muted">Name:</span> <a href="/book/{{_id}}"
+                                                                 style="color: #00b1ff;">{{name}}</a><br/>
+                        <span class="text-muted">Author:</span> <a href="/authors/{{authors._id}}"
+                                                                   style="color: #00b1ff;">{{ author.fname }} {{ author.lname }}</a>
                     </div>
                 </div>
             </div>
-        </div>
+
+        {{/each}}
     </div>
-</section>
+
+    <div style="margin-left: 350px;">  {{{ paginateHelper pagination }}} </div>
+</div>
+
+
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            {{#each books}}
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
+
+            {{/each}}
+        });
+
+    </script>
+
+{{/section}}

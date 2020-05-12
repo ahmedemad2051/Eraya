@@ -1,4 +1,5 @@
 {{#section 'styles'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <style>
         .pagination-sm > li > a{
             color: #0b0b0b;
@@ -40,7 +41,6 @@
                  <th scope="col">Name</th>
                  <th scope="col">Author</th>
                  <th scope="col">Avg Rate</th>
-                 <th scope="col">Rating</th>
                  <th scope="col">shelve</th>
               </tr>
             </thead>
@@ -52,6 +52,7 @@
                     <div class="d-flex">
                         <img src="/{{ book.image }}" width="200px">
                     </div>
+                     
                     <td>
                       <div class="media-body">
                        <p>{{ book.name }}</p>
@@ -63,6 +64,11 @@
                     </div>
                     </td>
                   </div>
+                </td>
+                <td>
+                      <div class="media-body">
+                       <div id="rateYo{{_id}}" ></div>
+                    </div>
                 </td>
                 <td>
                   <form action="/profile" method="POST">
@@ -85,3 +91,22 @@
   
 
         </section>
+
+        {{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            {{#each books}}
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
+
+            {{/each}}
+        });
+
+    </script>
+
+{{/section}}

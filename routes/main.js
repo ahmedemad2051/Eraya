@@ -11,7 +11,7 @@ router.get('/profile/current', profileController.current);
 router.get('/profile/finished', profileController.finished);
 router.get('/profile/read', profileController.read);
 router.get('/about', aboutController.about);
-
+router.get('/authors', authorCotroller.authors);
 router.get('/authors/:id', authorCotroller.author_details);
 router.post('/authors/:id', authorCotroller.bookStatus);
 const signUpController = require('../controllers/authentication/signUpController')
