@@ -78,6 +78,7 @@ exports.books = async (req, res, next) => {
                 books: books,
                 pagination: { page: page, limit:perPage,totalRows: count }
             })
+
         }else{
             return res.redirect('/')
         }

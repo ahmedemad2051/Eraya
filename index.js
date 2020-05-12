@@ -98,7 +98,7 @@ app.set('view engine', 'handlebars');
 // app.enable('view cache');
 
 
-app.all('/*', function (req, res, next) {
+app.all('/', function (req, res, next) {
     req.app.locals.layout = 'main'; // set your layout here
     next(); // pass control to the next handler
 });
@@ -115,7 +115,7 @@ app.use('/admin/assets' ,express.static('./node_modules/admin-lte'));
 const dashboardRouter = require('./routes/admin/dashboard');
 
 app.use('/admin',checkAuthentication.isAdmin ,dashboardRouter);
-
+// app.use('/admin',dashboardRouter);
 // front routes
 const mainRouter = require('./routes/main');
 
