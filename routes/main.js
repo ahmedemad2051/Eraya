@@ -18,6 +18,8 @@ router.get('/searchpage', searchController.search)
 router.post('/search', searchController.search)
 router.post('/search/advsearch', searchController.advancedSearch)
 
+router.get('/search/:name', searchController.getBookByCategory)
+
 router.get('/logout', signInController.logOut)
 
 

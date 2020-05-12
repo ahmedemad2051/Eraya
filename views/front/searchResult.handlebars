@@ -1,7 +1,7 @@
     <!-- slider Area Start-->
     <div class="slider-area ">
         <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
+        <div class="single-slider slider-height2 d-flex align-items-center" >
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -73,7 +73,7 @@
                                     <tr>
                                         <th><img src="/{{ image }}"  width="150px" height="200px"></th>
                                         <td>
-                                            <h4>{{name}}</h4>
+                                            <a href="#"><h4>{{name}}</h4></a>
                                             <p>{{author.fname}} {{author.lname}}</p>
                                             <p>{{category.name}}</p>
                                         </td>
@@ -106,14 +106,19 @@
                         
                         {{#compare foundCategoriesLength ">" 0}}
                             <p>Found categories:</p>
-                            {{#each foundCategories}}
+                            
                             <table class="table">
                                 <tbody>
-                                    <td>{{name}}</td>
+                                {{#each foundCategories}}
+                                    <tr>
+                                        <td>
+                                            {{name}}
+                                          <a style="position: absolute;left:10px" target="_blank" href="search/{{name}}">{{name}}</a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
                                 </tbody>
                             </table>
-
-                            {{/each}}
                         {{/compare}}
                     
                             {{#compare results "==" 0}}
@@ -135,21 +140,21 @@
                     <div class="client_review_slider owl-carousel">
                         <div class="single_client_review">
                             <div class="client_img">
-                                <img src="assets/img/client.png" alt="#">
+                                {{!-- <img src="assets/img/client.png" alt="#"> --}}
                             </div>
                             <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>
                         </div>
                         <div class="single_client_review">
                             <div class="client_img">
-                                <img src="assets/img/client_1.png" alt="#">
+                                {{!-- <img src="assets/img/client_1.png" alt="#"> --}}
                             </div>
                             <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>
                         </div>
                         <div class="single_client_review">
                             <div class="client_img">
-                                <img src="assets/img/client_2.png" alt="#">
+                                {{!-- <img src="assets/img/client_2.png" alt="#"> --}}
                             </div>
                             <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>

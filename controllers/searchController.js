@@ -6,6 +6,7 @@ exports.searchPage = (req, res, next)=>{
 }
 
 
+
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
@@ -20,7 +21,7 @@ exports.search = async(req, res, next) =>{
         foundCategories = await Category.find({"name": regex})
         categoryDropDown = await Category.find({})
         authorDropDown = await Author.find({}) 
-        var firstAuthor = authorDropDown[0].fname + authorDropDown[0].lname
+        var firstAuthor = authorDropDown[0].fname + " " +authorDropDown[0].lname
         var firstCategory = categoryDropDown[0].name
         var foundBooksLength = foundBooks.length
         var foundAuthorsLength = foundAuthors.length
@@ -48,20 +49,71 @@ exports.search = async(req, res, next) =>{
 
 
 exports.advancedSearch = async(req, res, next)=>{
-    console.log(req.body.author.trim(), req.body.category.trim())
-    res.render('front/searchResult')
-}
-// , function (err, foundBooks) {
-//     if(err){
-//         console.log(err)
-//     }else{
+    const searchKeyword = new RegExp(escapeRegex(req.body.searchKeyword), 'gi')
+    const author = req.body.author.trim()
+    const authorName = author.split(" ")
+    const fname = new RegExp(escapeRegex(authorName[0]), 'gi')
+    const lname = new RegExp(escapeRegex(authorName[1]), 'gi')
+    const category = req.body.category.trim()
 
-//         console.log(foundBooks)
-//         if(foundBooks){
-//             console.log(foundBooks)
-//         }else{
-//             console.log("No results found")
-//         }
-//     }
-    
-// })
+    const categoryDropDown = await Category.find({})
+    const authorDropDown = await Author.find({})
+
+    var firstAuthor = authorDropDown[0].fname + " " +authorDropDown[0].lname
+    var firstCategory = categoryDropDown[0].name
+    console.log(authorName[0])
+    authorFound = await Author.find({
+        fname: fname,
+        lname: lname
+    })
+    categoryFound = await Category.findOne({
+        name: category
+    })  
+    foundBooks = await Book.find({
+            "name": searchKeyword,
+            "author":authorFound,
+            "category": categoryFound._id
+    })
+    foundBooksLength  = foundBooks.length
+
+    res.render('front/searchResult',{
+        searchKeyword: req.body.searchKeyword,
+        foundBooks: foundBooks,
+        results: foundBooksLength,
+        categoryDropDown: categoryDropDown,
+        authorDropDown: authorDropDown,
+        firstAuthor: firstAuthor,
+        firstCategory: firstCategory,
+        foundBooksLength: foundBooksLength
+    })
+}
+
+
+exports.getBookByCategory =async (req, res, next)=>{
+    // console.log(req.params.searchKeyword)
+    categoryName = req.params.name
+    const categoryDropDown = await Category.find({})
+    const authorDropDown = await Author.find({})
+
+    var firstAuthor = authorDropDown[0].fname + " " +authorDropDown[0].lname
+    var firstCategory = categoryDropDown[0].name
+
+    categoryFound = await Category.findOne({
+        name: categoryName
+    })  
+    foundBooks = await Book.find({
+        "category": categoryFound._id
+    })
+    foundBooksLength = foundBooks.length
+
+    res.render('front/searchResult',{
+        foundBooks: foundBooks,
+        results: foundBooksLength,
+        foundBooksLength: foundBooksLength,
+        categoryDropDown: categoryDropDown,
+        authorDropDown: authorDropDown,
+        firstAuthor: firstAuthor,
+        firstCategory: firstCategory,
+        // foundBooksLength: foundBooksLength
+    })
+}
