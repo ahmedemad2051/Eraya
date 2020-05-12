@@ -18,7 +18,10 @@ exports.search = async(req, res, next) =>{
             {$or: [{"fname": regex}, {"lname": regex}, {"dob":regex}]}
             )
         foundCategories = await Category.find({"name": regex})
-        categoryDropDown = await Category.find({}) 
+        categoryDropDown = await Category.find({})
+        authorDropDown = await Author.find({}) 
+        var firstAuthor = authorDropDown[0].fname + authorDropDown[0].lname
+        var firstCategory = categoryDropDown[0].name
         var foundBooksLength = foundBooks.length
         var foundAuthorsLength = foundAuthors.length
         var foundCategoriesLength = foundCategories.length
@@ -35,11 +38,19 @@ exports.search = async(req, res, next) =>{
         foundAuthorsLength:     foundAuthorsLength,
         foundCategories:        foundCategories,
         foundCategoriesLength:  foundCategoriesLength,
-        categoryDropDown:       categoryDropDown,        
+        categoryDropDown:       categoryDropDown,
+        authorDropDown:         authorDropDown,   
+        firstAuthor:            firstAuthor,
+        firstCategory:           firstCategory,     
         results:                results,
     })
 }
 
+
+exports.advancedSearch = async(req, res, next)=>{
+    console.log(req.body.author.trim(), req.body.category.trim())
+    res.render('front/searchResult')
+}
 // , function (err, foundBooks) {
 //     if(err){
 //         console.log(err)

@@ -22,34 +22,39 @@
                 <div class="col-md-4">
                     <div class="product_sidebar">
                         <div class="single_sedebar">
-                            <form action="#">
+
+                            {{!-- advanced search form --}}
+                            <form action="/search/advsearch" method="post" id="advSearchForm">
                                 <input type="text" name="searchKeyword" id="searchKeyword" placeholder="Search keyword" value={{searchKeyword}}>
-                                <i class="ti-search"></i>
-                            </form>
-                        </div>
-                        <div class="single_sedebar">
-                            <div class="select_option">
-                                <div class="select_option_list">Category <i class="right fas fa-caret-down"></i> </div>
-                                <div class="select_option_dropdown">
-                                    {{#each categoryDropDown}}
-                                    <p>{{name}}</p>
-                                    {{/each}}
+                                <small id="advSearchBarErr" class="text-danger"></small>
+                                <button type="submit">Search</button>
+                                </div>
+                                <div class="single_sedebar">
+                                    <div class="select_option">
+                                        <div class="select_option_list" id="categoryDiv">{{firstCategory}} <i class="right fas fa-caret-down"></i> </div>
+                                        <div class="select_option_dropdown">
+                                            {{#each categoryDropDown}}
+                                            <p onclick="selectedCategory(this)" style="cursor: pointer;">{{name}}</p>
+                                            {{/each}}
+                                            <input type="hidden" id="categoryInput" name="category" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single_sedebar">
+                                    <div class="select_option">
+                                        <div class="select_option_list" id="authorDiv">{{firstAuthor}} <i class="right fas fa-caret-down"></i> </div>
+                                        <div class="select_option_dropdown">
+                                            {{#each authorDropDown}}
+                                            <p onclick="selectedAuthor(this)" style="cursor: pointer;">{{fname}} {{lname}}</p>
+                                            {{/each}}
+                                            <input type="hidden" id="authorInput" name="author" value="">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single_sedebar">
-                            <div class="select_option">
-                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>
-                                <div class="select_option_dropdown">
-                                    <p><a href="#">Type 1</a></p>
-                                    <p><a href="#">Type 2</a></p>   
-                                    <p><a href="#">Type 3</a></p>
-                                    <p><a href="#">Type 4</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        
+                    </form>
 
 
                 {{!-- the found books div --}}
@@ -209,4 +214,9 @@
 </body>
 
 </html>
+
+{{#section 'scripts'}}
+<script src="/assets/js/searchResult.js"></script>
+
+{{/section}}
 
