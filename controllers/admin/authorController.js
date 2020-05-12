@@ -33,6 +33,7 @@ exports.store = async (req, res) => {
             dob: dob,
             image: imgPath,
         });
+        req.flash('success', 'Author created successfully');
         res.redirect("/admin/authors");
     } catch (err) {
         return res.status(500).send(err);
@@ -76,6 +77,7 @@ exports.update = async (req, res) => {
             data['image'] = imgPath;
         }
         await Author.findByIdAndUpdate(id, {$set: data}, {new: true})
+        req.flash('success', 'Author updated successfully');
         res.redirect("/admin/authors");
     } catch (e) {
         res.status(500).write(e)
