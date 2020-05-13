@@ -48,7 +48,7 @@
                                 <a href="index.html"><img src="/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5">
+                        <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5" style="position: relative; right:120px;">
                             <!-- Main-menu -->
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
@@ -86,25 +86,23 @@
                         <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
                             <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
                                 <li class="d-none d-xl-block">
-                                    <div class="form-box f-right" style="position: relative; left:-120px;">
-                                        <input type="text" name="Search" placeholder="Search products" style="width: 400px;">
-                                        <div class="search-icon">
-                                            <i class="fas fa-search special-tag" style="position: relative; left:100px;"></i>
-                                        </div>
+                                    <div class="form-box f-right" style="position: relative; right:190px;">
+                                        <form id="searchForm" action="/search" method="post" style=" position: relative; left:-10px;">
+                                            <input type="text" name="searchBar" placeholder="Type for Search" style="width: 400px;" id="searchBar">
+                                            <small id="searchBarError" class="text-danger"></small>
+                                            <div class="search-icon">
+                                                <button type="submit" style="position: relative; right:1100px; background-color: Transparent;">
+                                                    {{!-- <i class="icon-circle-arrow-right icon-large"></i> Next --}}
+                                                    <i class="fas fa-search special-tag" style="position: relative; left:1220px;"></i>
+                                                </button>
+                                                
+                                            </div>
+                                        </form>
                                     </div>
                                 </li>
-                                {{!-- <li class=" d-none d-xl-block">
-                                    <div class="favorit-items">
-                                        <i class="far fa-heart"></i>
-                                    </div>
-                                </li> --}}
-                                {{!-- <li>
-                                    <div class="shopping-card">
-                                        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-                                    </div>
-                                </li> --}}
+
                                 {{#if session.userId }}
-                                <div style="position: relative; left:-50px;">
+                                <div style="position: relative; left:-70px;">
                                 <li class="nav-item btn-group">
                                     <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="">
                                         <i class="fa fa-user" aria-hidden="true" ></i>
@@ -134,3 +132,9 @@
     </div>
     <!-- Header End -->
 </header>
+
+
+{{#section 'scripts'}}
+<script src="/assets/js/searchScript.js"></script>
+
+{{/section}}
