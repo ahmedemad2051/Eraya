@@ -61,7 +61,7 @@ exports.advancedSearch = async(req, res, next)=>{
 
     var firstAuthor = authorDropDown[0].fname + " " +authorDropDown[0].lname
     var firstCategory = categoryDropDown[0].name
-    console.log(authorName[0])
+   
     authorFound = await Author.find({
         fname: fname,
         lname: lname
@@ -90,7 +90,7 @@ exports.advancedSearch = async(req, res, next)=>{
 
 
 exports.getBookByCategory =async (req, res, next)=>{
-    // console.log(req.params.searchKeyword)
+    
     categoryName = req.params.name
     const categoryDropDown = await Category.find({})
     const authorDropDown = await Author.find({})

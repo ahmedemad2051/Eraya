@@ -73,7 +73,8 @@
                                     <tr>
                                         <th><img src="/{{ image }}"  width="150px" height="200px"></th>
                                         <td>
-                                            <a href="#"><h4>{{name}}</h4></a>
+                                            
+                                            <a target="_blank" href="http://127.0.0.1:3000/book/{{_id}}"><h4>{{name}}</h4></a>
                                             <p>{{author.fname}} {{author.lname}}</p>
                                             <p>{{category.name}}</p>
                                         </td>
@@ -93,7 +94,8 @@
                                     <tr>
                                         <th><img src="/{{ image }}"  width="150px" height="200px"></th>
                                         <td>
-                                            <h4>{{fname}} {{lname}}</h4>
+                                            
+                                           <a target="_blank" href="http://127.0.0.1:3000/authors/{{_id}}"> <h4>{{fname}} {{lname}}</h4> </a>
                                             <p>{{dob}}</p>
                                         </td>
                                     </tr>
@@ -113,7 +115,7 @@
                                     <tr>
                                         <td>
                                             {{name}}
-                                          <a style="position: absolute;left:10px" target="_blank" href="search/{{name}}">{{name}}</a>
+                                          <a style="position: absolute;left:10px" target="_blank" href="http://127.0.0.1:3000/category/{{_id}}">{{name}}</a>
                                         </td>
                                     </tr>
                                 {{/each}}
