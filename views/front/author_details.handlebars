@@ -1,36 +1,7 @@
-{{!-- 
-<section class="cart_area section_padding">
-    <div class="container">
-      <div class="cart_inner">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Author</th>
-                <th scope="col">date of birth</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="media">
-                    <div class="d-flex">
-                       <img src="/{{ author.image }}" width="200px">
-                    </div>
-                    <div class="media-body">
-                       <p>{{ author.fname }} {{author.lname}}</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <h5>{{ author.dob }}</h5>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-  </section> --}}
+{{#section 'styles'}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+  
+{{/section}}
 
   	<!-- Start Align Area -->
 	<div class="whole-wrap">
@@ -69,6 +40,7 @@
                     <div class="d-flex">
                         <img src="/{{ image }}" width="200px">
                     </div>
+                     <div id="rateYo{{_id}}" ></div>
                     <div class="media-body">
                        <p>{{ name }}</p>
                     </div>
@@ -93,3 +65,21 @@
   </section>
 
 
+{{#section 'scripts'}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            {{#each books}}
+                $("#rateYo{{_id}}").rateYo({
+                    rating: "{{avgRate}}",
+                    starWidth: "20px",
+                    readOnly: true
+                });
+
+            {{/each}}
+        });
+
+    </script>
+
+{{/section}}
