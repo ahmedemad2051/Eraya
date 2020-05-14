@@ -89,31 +89,3 @@ exports.advancedSearch = async(req, res, next)=>{
 }
 
 
-exports.getBookByCategory =async (req, res, next)=>{
-    
-    categoryName = req.params.name
-    const categoryDropDown = await Category.find({})
-    const authorDropDown = await Author.find({})
-
-    var firstAuthor = authorDropDown[0].fname + " " +authorDropDown[0].lname
-    var firstCategory = categoryDropDown[0].name
-
-    categoryFound = await Category.findOne({
-        name: categoryName
-    })  
-    foundBooks = await Book.find({
-        "category": categoryFound._id
-    })
-    foundBooksLength = foundBooks.length
-
-    res.render('front/searchResult',{
-        foundBooks: foundBooks,
-        results: foundBooksLength,
-        foundBooksLength: foundBooksLength,
-        categoryDropDown: categoryDropDown,
-        authorDropDown: authorDropDown,
-        firstAuthor: firstAuthor,
-        firstCategory: firstCategory,
-        // foundBooksLength: foundBooksLength
-    })
-}

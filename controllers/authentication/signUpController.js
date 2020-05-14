@@ -22,7 +22,7 @@ exports.register = async(req, res, next) => {
             if(!user){
               const newOne = await newUser.save()
               console.log("Registered Successfully!")
-              res.redirect('/home')
+              res.redirect('/')
             }else{
                 console.log("This email alresdy exists")
                 req.flash("info", "This email alresdy exists")

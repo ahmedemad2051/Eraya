@@ -1,13 +1,31 @@
 const Category = require('../models/Category')
 const Book = require('../models/Book')
+const Author = require('../models/Author')
 const BookRating = require('../models/Book_Rating')
 const Users_Books = require('../models/Users_Books');
 const User = require('../models/User');
 // const paginate = require('express-paginate')
 
-
 exports.home = (req, res) => {
-    res.render('front/home');
+    Book.find({}, {name: 1, image: 1}).sort({avgRate: "desc"}).limit(6).select({"avgRate":1}).exec(function(err, docs) {
+        let authors = []
+        var flags = [], output = []
+
+        
+        for (let index = 0; index < docs.length; index++) {
+            authors.push(docs[index].author)
+        }
+        
+        for ( i=0; i<authors.length; i++) {
+            if( flags[authors[i]._id]) continue;
+                flags[authors[i]._id] = true;
+                output.push(authors[i]);
+        }
+
+        
+        res.render('front/home', {docs: docs, authors: output})
+    })
+    
 }
 // app.use(paginate.middleware(10, 50));
 

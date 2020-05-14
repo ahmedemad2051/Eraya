@@ -53,19 +53,21 @@
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         <li><a href="/categories">Catagories</a></li>
-                                        <li class="hot"><a href="/books">Books</a>
+                                        <li><a href="/books">Books</a></li>
+                                        
+                                        {{!-- <li class="hot"><a href="/books">Books</a>
                                             <ul class="submenu">
                                                 <li><a href="product_list.html"> Product list</a></li>
                                                 <li><a href="single-product.html"> Product Details</a></li>
                                             </ul>
-                                        </li>
-                                        <li><a href="blog.html">Blog</a>
-                                            <ul class="submenu">
+                                        </li> --}}
+                                        <li><a href="/authors">Authors</a>
+                                            {{!-- <ul class="submenu">
                                                 <li><a href="blog.html">Blog</a></li>
                                                 <li><a href="single-blog.html">Blog Details</a></li>
-                                            </ul>
+                                            </ul> --}}
                                         </li>
                                         <li><a href="#">Pages</a>
                                             <ul class="submenu">
@@ -108,7 +110,7 @@
                                         <i class="fa fa-user" aria-hidden="true" ></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby= "dropdownMen">
-                                        <a class="dropdown-item" style='line-height: 1.6; border-bottom: 0.5px solid grey;'>Profile</a>
+                                        <a class="dropdown-item" style='line-height: 1.6; border-bottom: 0.5px solid grey;' href="/profile">Profile</a>
                                         <a class="dropdown-item" href="/logout">Log Out</a>
                                     </div>
 
