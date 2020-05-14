@@ -48,7 +48,7 @@
                                 <a href="index.html"><img src="/assets/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5" style="position: relative; right:120px;">
+                        <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5" style="position: relative; right:17%;">
                             <!-- Main-menu -->
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
@@ -69,8 +69,8 @@
                                                 <li><a href="single-blog.html">Blog Details</a></li>
                                             </ul> --}}
                                         </li>
-                                        <li><a href="#">Pages</a>
-                                            <ul class="submenu">
+                                        <li><a href="/about">About</a>
+                                            {{!-- <ul class="submenu">
                                                 <li><a href="login.html">Login</a></li>
                                                 <li><a href="cart.html">Card</a></li>
                                                 <li><a href="elements.html">Element</a></li>
@@ -78,9 +78,9 @@
                                                 <li><a href="confirmation.html">Confirmation</a></li>
                                                 <li><a href="cart.html">Shopping Cart</a></li>
                                                 <li><a href="checkout.html">Product Checkout</a></li>
-                                            </ul>
+                                            </ul> --}}
                                         </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        {{!-- <li><a href="contact.html">Contact</a></li> --}}
                                     </ul>
                                 </nav>
                             </div>
@@ -90,13 +90,10 @@
                                 <li class="d-none d-xl-block">
                                     <div class="form-box f-right" style="position: relative; right:190px;">
                                         <form id="searchForm" action="/search" method="post" style=" position: relative; left:-10px;">
-                                            <input type="text" name="searchBar" placeholder="Type for Search" style="width: 400px;" id="searchBar">
-                                            <small id="searchBarError" class="text-danger"></small>
+                                            <input type="text" name="searchBar" placeholder="Type for Search" style="position: relative; width: 150%;right:30%" id="searchBar">
+                                            <small id="searchBarError" class="text-danger" style="position: absolute;"></small>
                                             <div class="search-icon">
-                                                <button type="submit" style="position: relative; right:1100px; background-color: Transparent;">
-                                                    {{!-- <i class="icon-circle-arrow-right icon-large"></i> Next --}}
-                                                    <i class="fas fa-search special-tag" style="position: relative; left:1220px;"></i>
-                                                </button>
+                                                    <i class="fas fa-search special-tag" id="submitForm" style="position: relative;left: 700%;"></i>
                                                 
                                             </div>
                                         </form>

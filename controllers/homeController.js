@@ -7,26 +7,15 @@ const User = require('../models/User');
 // const paginate = require('express-paginate')
 
 exports.home = (req, res) => {
-    Book.find({}, {name: 1, image: 1}).sort({avgRate: "desc"}).limit(6).select({"avgRate":1}).exec(function(err, docs) {
-        let authors = []
-        var flags = [], output = []
-
-        
-        for (let index = 0; index < docs.length; index++) {
-            authors.push(docs[index].author)
-        }
-        
-        for ( i=0; i<authors.length; i++) {
-            if( flags[authors[i]._id]) continue;
-                flags[authors[i]._id] = true;
-                output.push(authors[i]);
-        }
-
-        
-        res.render('front/home', {docs: docs, authors: output})
-    })
-    
+    Book.find({}).sort({avgRate: "desc"}).limit(6).exec(function(err, docs) {
+            Author.find({}).limit(6).exec(function(err, result) {
+            Category.find({}).limit(6).exec(function(err, categories) {
+                res.render('front/home', {docs: docs, authors: result, categories: categories})
+            })
+            })
+        })
 }
+    
 // app.use(paginate.middleware(10, 50));
 
 exports.categories = async (req, res, next) => {
