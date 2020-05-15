@@ -15,7 +15,8 @@ exports.all =async (req, res) => {
             .exec();
         if(books){
             const count = await Users_Books.countDocuments();
-            res.render(`${views}/all_books`,{books: books ,
+            const allTab = true;
+            res.render(`${views}/all_books`,{books: books , allTab, 
            pagination: {page: page, limit: perPage, totalRows: count}});
         }
         else {
@@ -38,7 +39,9 @@ exports.current =async (req, res) => {
             .exec();
         if(books){
             const count = await Users_Books.countDocuments();
-            res.render(`${views}/all_books`,{books: books ,
+            const currentTab = true;
+           
+            res.render(`${views}/all_books`,{books: books , currentTab , 
            pagination: {page: page, limit: perPage, totalRows: count}});
         }
         else {
@@ -61,7 +64,8 @@ exports.finished =async (req, res) => {
             .exec();
         if(books){
             const count = await Users_Books.countDocuments();
-            res.render(`${views}/all_books`,{books: books ,
+            const finishTab = true;
+            res.render(`${views}/all_books`,{books: books , finishTab,
            pagination: {page: page, limit: perPage, totalRows: count}});
         }
         else {
@@ -83,7 +87,8 @@ exports.read =async (req, res) => {
             .exec();
         if(books){
             const count = await Users_Books.countDocuments();
-            res.render(`${views}/all_books`,{books: books ,
+            const readTab = true;
+            res.render(`${views}/all_books`,{books: books , readTab,
            pagination: {page: page, limit: perPage, totalRows: count}});
         }
         else {
@@ -99,8 +104,6 @@ exports.bookStatus = async (req, res) => {
     try {
         let {selectedBook, book_id} = req.body;
         let currUser = await User.findOne({_id: req.session.userId});
-        console.log(req.session.userId);
-        console.log(book_id);
         Book_exists = await Book.findOne({_id: book_id});
         if(!Book_exists){
             res.redirect('/');

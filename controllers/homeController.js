@@ -28,7 +28,6 @@ exports.categories = async (req, res, next) => {
 }
 
 exports.categoryBooks = async (req, res, next) => {
-    console.log(req.session.userId)
     var perPage = 16
     var page = req.query.page || 1
     const id = req.params.id
@@ -40,8 +39,6 @@ exports.categoryBooks = async (req, res, next) => {
                                 .limit(perPage)
                                 .exec();
          if(books) {
-             // console.log(books)
-             // get total documents in the Posts collection
              const count = await Book.countDocuments();
 
              return res.render('front/category_books', {
@@ -133,8 +130,6 @@ exports.bookDetails = async (req, res, next) => {
 }
 
 exports.setRate = async (req, res, next) => {
-    // console.log(req.params.review)
-    // console.log(req.params.rate)
     let status = false;
     let msg = 'failed to add review, please try again later';
     try {

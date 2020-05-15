@@ -13,7 +13,8 @@
 						 <img src="/{{ author.image }}" width="200px">
 					</div>
 					<div class="col-md-9 mt-sm-20">
-						<p>{{ author.fname }} {{author.lname}}</p>
+            <span class="text-muted">Name:</span> <a href="/authors/{{_id}}"
+                                                                 style="color: #00b1ff;">{{ author.fname }} {{author.lname}}</a><br/>
              <h5>{{ author.dob }}</h5>
 					</div>
 				</div>
@@ -42,7 +43,8 @@
                     </div>
                      <div id="rateYo{{_id}}" ></div>
                     <div class="media-body">
-                       <p>{{ name }}</p>
+                      <span class="text-muted">Name:</span> <a href="/book/{{_id}}"
+                                                                 style="color: #00b1ff;">{{name}}</a><br/>
                     </div>
                   </div>
                 </td>

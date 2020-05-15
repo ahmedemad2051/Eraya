@@ -21,10 +21,10 @@
                             <!--Nav Button  -->
                             <nav>                                                                                                
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab"  href="/profile" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab"  href="/profile/finished" role="tab" aria-controls="nav-profile" aria-selected="false">Read</a>
-                                    <a class="nav-item nav-link" id="nav-contact-tab"  href="/profile/current" role="tab" aria-controls="nav-contact" aria-selected="false">Currently Reading</a>
-                                    <a class="nav-item nav-link" id="nav-last-tab"  href="/profile/read" role="tab" aria-controls="nav-contact" aria-selected="false">Want To Read</a>
+                                    <a class="nav-item nav-link {{#if allTab}}active{{/if}}" id="nav-home-tab"  href="/profile" role="tab" aria-controls="nav-home" aria-selected="false">All</a>
+                                    <a class="nav-item nav-link {{#if finishTab}}active{{/if}}" id="nav-profile-tab"  href="/profile/finished" role="tab" aria-controls="nav-profile" aria-selected="false">Read</a>
+                                    <a class="nav-item nav-link {{#if currentTab}}active{{/if}}" id="nav-contact-tab"  href="/profile/current" role="tab" aria-controls="nav-contact" aria-selected="false">Currently Reading</a>
+                                    <a class="nav-item nav-link {{#if readTab}}active{{/if}}" id="nav-last-tab"  href="/profile/read" role="tab" aria-controls="nav-contact" aria-selected="false">Want To Read</a>
                                 </div>
 
                            
@@ -38,6 +38,7 @@
             <thead>
               <tr>
                  <th scope="col">cover</th>
+                 <th scope="col"></th>
                  <th scope="col">Name</th>
                  <th scope="col">Author</th>
                  <th scope="col">Avg Rate</th>
@@ -52,15 +53,19 @@
                     <div class="d-flex">
                         <img src="/{{ book.image }}" width="200px">
                     </div>
-                     
                     <td>
+                    </td>
+                     <td>
                       <div class="media-body">
-                       <p>{{ book.name }}</p>
+                       <p>
+                         <a href="/book/{{book._id}}" style="color: #00b1ff;">{{book.name}}</a><br/>
+                       </p>
                     </div>
                     </td>
                     <td>
                       <div class="media-body">
-                       <p>{{ book.author.fname }}</p>
+                       <a href="/authors/{{book.author._id}}"
+                                             style="color: #00b1ff;">{{ book.author.fname }} </a><br/>
                     </div>
                     </td>
                   </div>
@@ -74,10 +79,12 @@
                   <form action="/profile" method="POST">
                   <input type="hidden" name="book_id" value="{{book._id}}">
                     <select class="shipping_select" onchange="this.form.submit()" name="selectedBook">
+                     {{#select shelve}}
                       <option value="finished">Read</option>
                       <option value="current">Currently Readinga</option>
                       <option value="read">Want to Read</option>
-                    </select>
+                                    {{/select}}
+                                    </select>
                   </form>
                 </td>
               </tr>
@@ -92,14 +99,14 @@
 
         </section>
 
-        {{#section 'scripts'}}
+{{#section 'scripts'}}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
         $(document).ready(function () {
             {{#each books}}
                 $("#rateYo{{_id}}").rateYo({
-                    rating: "{{avgRate}}",
+                    rating: "{{book.avgRate}}",
                     starWidth: "20px",
                     readOnly: true
                 });
