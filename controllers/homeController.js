@@ -200,7 +200,6 @@ exports.bookStatus = async (req, res) => {
         else {
             let userBook = await Users_Books.findOne({user: currUser, book: book_id });
             if(userBook){
-                console.log("update")
                 await Users_Books.update({shelve: selectedBook})
             }
             else {

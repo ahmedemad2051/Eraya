@@ -8,8 +8,6 @@ const express = require('express');
 const app = express();
 
 
-session.name = "mohamed"
-
 
 exports.signIn = (req, res) => {
     res.render('front/signIn')
@@ -39,6 +37,7 @@ exports.login = async(req, res, next) => {
                     req.session.lName = user.lName
                     req.session.isAdmin = user.isAdmin
                     await req.session.save()
+                    console.log(req.session.userId)
                     res.redirect('/')
                 }else{
                     req.flash('info', "Invalid Email OR Password.")

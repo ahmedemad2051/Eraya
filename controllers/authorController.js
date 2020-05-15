@@ -7,7 +7,6 @@ const BookRating = require('../models/Book_Rating');
 let views = "front/author_details"
 
 exports.authors= async (req, res, next) => {
-    console.log(req.session.userId)
     var perPage = 16
     var page = req.query.page || 1
 
@@ -62,7 +61,7 @@ exports.bookStatus = async (req, res) => {
         else {
             let userBook = await Users_Books.findOne({user: currUser, book: book_id });
             if(userBook){
-                console.log("update")
+                
                await Users_Books.update({shelve: selectedBook})
             }
             else {
