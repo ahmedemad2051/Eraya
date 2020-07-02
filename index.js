@@ -143,7 +143,7 @@ app.use(function (err, req, res, next) {
 
 });
 
-mongoose.connect('mongodb://localhost:27017/eraya', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb://mongo_host:27017/eraya', {useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => {
         console.log('mongodb started.');
         app.listen(PORT, () => {

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  eraya:
+    build: .
+    restart: always
+    ports:
+    - 99:3000        
+    depends_on:
+      - mongo_host
+
+  mongo_host:
+    image: mongo
+    volumes:
+      - mongovol:/var/lib/mongo
+volumes:
+  mongovol: {}
